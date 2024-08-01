@@ -26,28 +26,23 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0 pe-4">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="service.html" class="nav-item nav-link">Service</a>
-                    <a href="{{'cardapio'}}" class="nav-item nav-link">Menu</a>
+                    <a href="{{route('index')}}" class="nav-item nav-link">Home</a>
+                    <a href="{{route('sobre_nos')}}" class="nav-item nav-link">Sobre</a>
+                    <a href="{{route('contato')}}" class="nav-item nav-link">Contato</a>
+                    @guest
+                        <a href="{{route('registro')}}" class="nav-item nav-link">Registro</a>
+                        <a href="{{route('login')}}" class="nav-item nav-link">Login</a>
+                    @endguest
                     @auth
-                        @if(auth()->user()->admin)
-                            <a href="{{ route('admin_area') }}" class="nav-item nav-link">Área Admin</a>
-                        @else
-                            <span class="nav-item nav-link">Bem-Vindo, {{ auth()->user()->nome }}</span>
-                        @endif
+                        <span class="nav-item nav-link">Bem-Vindo, {{ auth()->user()->nome }}</span>
+                        <a href="{{route('logout')}}" class="nav-item nav-link">Logout</a>
                     @endauth
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="booking.html" class="dropdown-item">Booking</a>
-                            <a href="team.html" class="dropdown-item">Our Team</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                        </div>
-                    </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="" class="btn btn-primary py-2 px-4">Book A Table</a>
+                <a href="{{route('cardapio')}}" class="btn btn-primary py-2 px-4">Faça seu pedido!</a>
+                <a class="nav-link" href="">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge badge-pill badge-primary">0</span>
+                </a>
             </div>
         </nav>
 
@@ -55,9 +50,9 @@
             <div class="container my-5 py-5">
                 <div class="row align-items-center g-5">
                     <div class="col-lg-6 text-center text-lg-start">
-                        <h1 class="display-3 text-white animated slideInLeft">Enjoy Our<br>Delicious Meal</h1>
-                        <p class="text-white animated slideInLeft mb-4 pb-2">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                        <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A Table</a>
+                        <h1 class="display-3 text-white animated slideInLeft">Curta sabores<br>Incríveis</h1>
+                        <p class="text-white animated slideInLeft mb-4 pb-2">A Pizzaria Ribeiro é conhecida pela qualidade de suas pizzas, feitas com ingredientes frescos e selecionados. A massa é crocante e leve, e as coberturas variam das clássicas às mais sofisticadas, garantindo sabor autêntico e excelência em cada fatia.</p>
+                        <a href="{{ route('cardapio') }}" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Faça seu pedido!</a>
                     </div>
                     <div class="col-lg-6 text-center text-lg-end overflow-hidden">
                         <img class="img-fluid" src="site/img/hero.png" alt="">

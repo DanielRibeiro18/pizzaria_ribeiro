@@ -17,10 +17,10 @@
         <input type="text" id="preco" name="preco" >
 
         <label for="precomedia">Preço média:</label>
-        <input type="text" id="precomedia" name="precomedia" >
+        <input type="text" id="precomedia" name="precoMedia" >
 
-        <label for="precogrande">Preço média:</label>
-        <input type="text" id="precogrande" name="precogrande" >
+        <label for="precogrande">Preço Grande:</label>
+        <input type="text" id="precogrande" name="precoGrande" >
 
         <label for="descricao">Descrição:</label>
         <input type="text" id="descricao" name="descricao" required>

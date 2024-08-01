@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::get('/cardapio', "CardapioController@index") ->name('cardapio');
+Route::get('/cardapio', 'ProdutoController@index')->name('cardapio');
 
 Route::view('/sobre-nos', 'sobre_nos')->name('sobre_nos');
 

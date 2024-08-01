@@ -46,4 +46,13 @@ class ProdutoController extends Controller
 
     }
 
+    public function index()
+    {
+        $salgadas = Produto::where('categoriaId', 1)->get();
+        $doces = Produto::where('categoriaId', 2)->get();
+        $bebidas = Produto::where('categoriaId', 3)->get();
+
+        return view('cardapio', compact('salgadas', 'doces', 'bebidas'));
+    }
+
 }

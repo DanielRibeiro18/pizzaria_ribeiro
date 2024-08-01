@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFkCategoriaidProdutos extends Migration
+class CreateFormaPagamentosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddFkCategoriaidProdutos extends Migration
      */
     public function up()
     {
-        Schema::table('produtos', function (Blueprint $table){
-           $table->unsignedBigInteger('categoriaId');
-            $table->foreign('categoriaId')->references('id')->on('categorias');
+        Schema::create('forma_pagamentos', function (Blueprint $table) {
+            $table->id();
+            $table->string('nome');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +27,6 @@ class AddFkCategoriaidProdutos extends Migration
      */
     public function down()
     {
-        Schema::table('produtos', function (Blueprint $table) {
-            Schema::dropColumn('categoriaId');
-        });
+        Schema::dropIfExists('forma_pagamentos');
     }
 }
