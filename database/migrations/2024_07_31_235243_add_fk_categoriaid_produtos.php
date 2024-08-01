@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCardapiosTable extends Migration
+class AddFkCategoriaidProdutos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateCardapiosTable extends Migration
      */
     public function up()
     {
-        Schema::create('cardapios', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('produtos', function (Blueprint $table){
+           $table->unsignedBigInteger('categoriaId');
+            $table->foreign('categoriaId')->references('id')->on('categorias');
         });
     }
 
@@ -26,6 +26,6 @@ class CreateCardapiosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cardapios');
+        //
     }
 }

@@ -6,7 +6,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="site/img/favicon.ico" rel="icon">
+    <link href="site/img/pizzaria-logo.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,5 +27,6 @@
 
     <!-- Template Stylesheet -->
     <link href="site/css/style.css" rel="stylesheet">
+
 </head>
 
