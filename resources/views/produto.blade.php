@@ -16,11 +16,12 @@
         <label for="preco">Preço:</label>
         <input type="text" id="preco" name="preco" >
 
-        <label for="precomedia">Preço média:</label>
-        <input type="text" id="precomedia" name="precoMedia" >
-
-        <label for="precogrande">Preço Grande:</label>
-        <input type="text" id="precogrande" name="precoGrande" >
+        <label for="tamanho">Tamanho:</label>
+        <select name="tamanho">
+            <option value="" selected></option>
+            <option value="media">Média</option>
+            <option value="grande">Grande</option>
+        </select>
 
         <label for="descricao">Descrição:</label>
         <input type="text" id="descricao" name="descricao" required>

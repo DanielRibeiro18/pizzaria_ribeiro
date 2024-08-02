@@ -15,14 +15,14 @@ class CreatePedidosTable extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
-            $table->string('forma_pagamento');
-            $table->string('situacao');
-            $table->string('valor_produtos');
-            $table->string('taxa_entrega');
-            $table->string('subtotal');
-            $table->string('endereco');
-            $table->string('referencia');
-            $table->unsignedBigInteger('usuarioId');
+            $table->string('forma_pagamento')->nullable();
+            $table->string('situacao')->nullable();
+            $table->string('valor_produtos')->nullable();
+            $table->string('taxa_entrega')->nullable();
+            $table->string('subtotal')->nullable();
+            $table->string('endereco')->nullable();
+            $table->string('referencia')->nullable();
+            $table->unsignedBigInteger('usuarioId')->nullable();
             $table->foreign('usuarioId')->references('id')->on('usuarios');
             $table->unsignedBigInteger('cupomId')->nullable();
             $table->foreign('cupomId')->references('id')->on('cupoms');

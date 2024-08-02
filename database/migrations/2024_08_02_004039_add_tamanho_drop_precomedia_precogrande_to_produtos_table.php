@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFkCategoriaidProdutos extends Migration
+class AddTamanhoDropPrecomediaPrecograndeToProdutosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class AddFkCategoriaidProdutos extends Migration
      */
     public function up()
     {
-        Schema::table('produtos', function (Blueprint $table){
-           $table->unsignedBigInteger('categoriaId');
-            $table->foreign('categoriaId')->references('id')->on('categorias');
+        Schema::table('produtos', function (Blueprint $table) {
+            $table->string('tamanho')->nullable();
+            $table->dropColumn('precoMedia');
+            $table->dropColumn('precoGrande');
         });
+
+
     }
 
     /**
@@ -27,7 +30,9 @@ class AddFkCategoriaidProdutos extends Migration
     public function down()
     {
         Schema::table('produtos', function (Blueprint $table) {
-            $table->dropColumn('categoriaId');
+            $table->dropColumn('tamanho');
+            $table->string('precoMedia')->nullable();
+            $table->string('precoGrande')->nullable();
         });
     }
 }

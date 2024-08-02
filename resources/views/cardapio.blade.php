@@ -54,12 +54,13 @@
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                 <span>{{ $produto->nome }}</span>
-                                                <span class="text-primary">Média: R${{ $produto->precoMedia / 100 }}</span>
-                                                <span class="text-primary">Grande: R${{ $produto->precoGrande / 100 }}</span>
+                                                <span class="text-primary">R${{ $produto->preco /100}}</span>
                                             </h5>
                                             <small class="fst-italic">{{ $produto->descricao }}</small>
-                                            <button value="media">+ Média</button>
-                                            <button value="grande">+ Grande</button>
+                                            <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                <button type="submit" value="adicionar">Adicionar ao carrinho</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -75,12 +76,13 @@
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                 <span>{{ $produto->nome }}</span>
-                                                <span class="text-primary">Média: R${{ $produto->precoMedia / 100 }}</span>
-                                                <span class="text-primary">Grande: R${{ $produto->precoGrande / 100 }}</span>
+                                                <span class="text-primary">R${{ $produto->preco /100 }}</span>
                                             </h5>
                                             <small class="fst-italic">{{ $produto->descricao }}</small>
-                                            <button value="media">+ Média</button>
-                                            <button value="grande">+ Grande</button>
+                                            <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST" >
+                                                {{ csrf_field() }}
+                                                <button type="submit" value="adicionar">Adicionar ao carrinho</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +101,10 @@
                                                 <span class="text-primary">R${{ $produto->preco / 100 }}</span>
                                             </h5>
                                             <small class="fst-italic">{{ $produto->descricao }}</small>
-                                            <button value="adicionar">Adicionar</button>
+                                            <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                <button type="submit" value="adicionar">Adicionar ao carrinho</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

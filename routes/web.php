@@ -1,5 +1,6 @@
 <?php
 
+use App\Pedido;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,3 +43,12 @@ Route::post('/login', 'AuthController@login')->name('usuario.login');
 Route::get('/logout', 'AuthController@logout')->name('logout');
 
 Route::post('/registro', 'UsuarioController@registro')->name('usuario.registro');
+
+Route::post('/pedido/adiciona/{produto}', 'PedidoController@adicionaProduto')->name('pedido.adiciona');
+
+Route::get('/checkout', function () {
+
+    $usuario = auth()->user();
+    $pedido = Pedido::where('situacao', null)->where('usuarioId', $usuario->id)->firstOrCreate(['usuarioId' => $usuario->id]);
+    return view('checkout', ['produtos' => $pedido->produtos]);
+})->name('checkout');
