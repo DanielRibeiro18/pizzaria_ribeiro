@@ -47,11 +47,13 @@ class ProdutoController extends Controller
 
     public function index()
     {
-        $salgadas = Produto::where('categoriaId', 1)->get();
-        $doces = Produto::where('categoriaId', 2)->get();
-        $bebidas = Produto::where('categoriaId', 3)->get();
+        $salgmedia = Produto::where('tamanho', 'media')->where('categoriaId', 1)->get();
+        $salggrande = Produto::where('tamanho', 'grande')->where('categoriaId', 1)->get();
+        $docemedia = Produto::where('tamanho', 'media')->where('categoriaId', 2)->get();
+        $docegrande = Produto::where('tamanho', 'grande')->where('categoriaId', 2)->get();
+        $bebidas = Produto::where('tamanho', null)->where('categoriaId', 3)->get();
 
-        return view('cardapio', compact('salgadas', 'doces', 'bebidas'));
+        return view('cardapio', compact('salgmedia', 'salggrande', 'docemedia', 'docegrande', 'bebidas'));
     }
 
 }
