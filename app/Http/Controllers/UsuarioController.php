@@ -27,4 +27,35 @@ class UsuarioController extends Controller
         return redirect(route('index'));
     }
 
+    public function remover(Request $request, Usuario $usuario)
+    {
+        $usuario->delete();
+
+        return redirect(route('usuario.list'));
+    }
+
+    public function edit(Request $request, Usuario $usuario)
+    {
+        return view('admin.usuarios.edit', ['usuario' => $usuario]);
+    }
+
+    public function update(Request $request, Usuario $usuario)
+    {
+        $usuario->nome = $request->nome;
+        $usuario->telefone = $request->telefone;
+        $usuario->cpf = $request->cpf;
+        $usuario->email = $request->email;
+
+        $usuario->save();
+
+        return redirect(route('usuario.list'));
+    }
+
+    public function list(Request $request)
+    {
+        $usuarios = Usuario::all();
+
+        return view('admin.usuarios.index', ['usuarios' => $usuarios]);
+    }
+
 }

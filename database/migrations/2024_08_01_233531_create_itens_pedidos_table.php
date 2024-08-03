@@ -16,9 +16,9 @@ class CreateItensPedidosTable extends Migration
         Schema::create('itens_pedidos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pedidoId')->nullable();
-            $table->foreign('pedidoId')->references('id')->on('pedidos');
+            $table->foreign('pedidoId')->references('id')->on('pedidos')->cascadeOnDelete();
             $table->unsignedBigInteger('produtoId')->nullable();
-            $table->foreign('produtoId')->references('id')->on('produtos');
+            $table->foreign('produtoId')->references('id')->on('produtos')->cascadeOnDelete();
             $table->integer('quantidade')->nullable();
             $table->timestamps();
         });

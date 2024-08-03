@@ -19,8 +19,13 @@ class PedidoController extends Controller
         $pedido = Pedido::where('situacao', null)->where('usuarioId', $usuario->id)->firstOrCreate(['usuarioId' => $usuario->id]);
 
 
-        $pedido->produtos()->attach($produto, ['quantidade' => 1]);
+        if ($prd = $pedido->produtos()->where('produtoId', $produto->id)->first()){
 
+            $pedido->produtos()->updateExistingPivot($produto->id, ['quantidade' => $prd->pivot->quantidade+1]);
+
+        } else{
+            $pedido->produtos()->attach($produto, ['quantidade' => 1]);
+        }
 
         session(['itens_carrinho' => $pedido->produtos()->count()]);
 
@@ -48,7 +53,9 @@ class PedidoController extends Controller
             ->firstOrCreate(['usuarioId' => $usuario->id]);
 
         $produtos = $pedido->produtos;
-        $totalPreco = $produtos->sum('preco');
+        $totalPreco = $produtos->map(function($produto){
+            return $produto->preco * $produto->pivot->quantidade;
+        })->sum();
 
         if ($pedido->cupom != null){
             $totalPreco = $totalPreco - (($totalPreco)*($pedido->cupom->valor/100));

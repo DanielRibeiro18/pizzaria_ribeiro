@@ -18,7 +18,7 @@ class CreateBairrosTable extends Migration
             $table->string('nome');
             $table->string('slug');
             $table->string('cidade');
-            $table->integer('valor_entrega');
+            $table->decimal('valor_entrega', 10, 2);
             $table->timestamps();
         });
     }

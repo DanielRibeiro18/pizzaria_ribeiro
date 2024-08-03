@@ -44,6 +44,14 @@ Route::get('/logout', 'AuthController@logout')->name('logout');
 
 Route::post('/registro', 'UsuarioController@registro')->name('usuario.registro');
 
+Route::get('/admin/usuario', 'UsuarioController@list')->name('usuario.list');
+
+Route::post('/admin/usuario/{usuario}', 'UsuarioController@remover')->name('usuario.remove');
+
+Route::get('/admin/usuario/{usuario}/edit', 'UsuarioController@edit')->name('usuario.edit');
+
+Route::put('/admin/usuario/{usuario}', 'UsuarioController@update')->name('usuario.update');
+
 Route::post('/pedido/adiciona/{produto}', 'PedidoController@adicionaProduto')->name('pedido.adiciona');
 
 Route::post('/pedido/remove/{produto}', 'PedidoController@removeProduto')->name('pedido.remove');

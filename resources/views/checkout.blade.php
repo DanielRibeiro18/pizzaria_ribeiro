@@ -7,6 +7,7 @@
     <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
     <span>{{ $produto->nome }}</span>
     <span>{{ $produto->preco }}</span>
+    <span>{{ $produto->pivot->quantidade }}</span>
     <br>
     <form action="{{ route('pedido.remove', $produto->id) }}" method="POST">
         {{ csrf_field() }}
