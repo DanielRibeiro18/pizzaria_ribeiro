@@ -76,13 +76,15 @@
                                                 <div class="w-100 d-flex flex-column text-start ps-4">
                                                     <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                         <span>{{ $produto->nome }}</span>
-                                                        <span class="text-primary">R${{ $produto->preco / 100 }}</span>
+                                                        <span class="text-primary">R${{ $produto->preco  }}</span>
                                                     </h5>
                                                     <small class="fst-italic">{{ $produto->descricao }}</small>
-                                                    <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST">
-                                                        {{ csrf_field() }}
-                                                        <button type="submit" value="adicionar">Adicionar ao carrinho</button>
-                                                    </form>
+                                                    @auth
+                                                        <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            <button type="submit" value="adicionar">Adicionar ao carrinho</button>
+                                                        </form>
+                                                    @endauth
                                                 </div>
                                             </div>
                                         </div>
@@ -98,13 +100,15 @@
                                                 <div class="w-100 d-flex flex-column text-start ps-4">
                                                     <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                         <span>{{ $produto->nome }}</span>
-                                                        <span class="text-primary">R${{ $produto->preco / 100 }}</span>
+                                                        <span class="text-primary">R${{ $produto->preco  }}</span>
                                                     </h5>
                                                     <small class="fst-italic">{{ $produto->descricao }}</small>
-                                                    <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST">
-                                                        {{ csrf_field() }}
-                                                        <button type="submit" value="adicionar">Adicionar ao carrinho</button>
-                                                    </form>
+                                                    @auth
+                                                        <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            <button type="submit" value="adicionar">Adicionar ao carrinho</button>
+                                                        </form>
+                                                    @endauth
                                                 </div>
                                             </div>
                                         </div>
@@ -145,13 +149,15 @@
                                                 <div class="w-100 d-flex flex-column text-start ps-4">
                                                     <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                         <span>{{ $produto->nome }}</span>
-                                                        <span class="text-primary">R${{ $produto->preco / 100 }}</span>
+                                                        <span class="text-primary">R${{ $produto->preco }}</span>
                                                     </h5>
                                                     <small class="fst-italic">{{ $produto->descricao }}</small>
-                                                    <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST">
-                                                        {{ csrf_field() }}
-                                                        <button type="submit" value="adicionar">Adicionar ao carrinho</button>
-                                                    </form>
+                                                    @auth
+                                                        <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            <button type="submit" value="adicionar">Adicionar ao carrinho</button>
+                                                        </form>
+                                                    @endauth
                                                 </div>
                                             </div>
                                         </div>
@@ -167,13 +173,15 @@
                                                 <div class="w-100 d-flex flex-column text-start ps-4">
                                                     <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                         <span>{{ $produto->nome }}</span>
-                                                        <span class="text-primary">R${{ $produto->preco / 100 }}</span>
+                                                        <span class="text-primary">R${{ $produto->preco  }}</span>
                                                     </h5>
                                                     <small class="fst-italic">{{ $produto->descricao }}</small>
-                                                    <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST">
-                                                        {{ csrf_field() }}
-                                                        <button type="submit" value="adicionar">Adicionar ao carrinho</button>
-                                                    </form>
+                                                    @auth
+                                                        <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            <button type="submit" value="adicionar">Adicionar ao carrinho</button>
+                                                        </form>
+                                                    @endauth
                                                 </div>
                                             </div>
                                         </div>
@@ -194,13 +202,15 @@
                                                 <div class="w-100 d-flex flex-column text-start ps-4">
                                                     <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                         <span>{{ $produto->nome }}</span>
-                                                        <span class="text-primary">R${{ $produto->preco / 100 }}</span>
+                                                        <span class="text-primary">R${{ $produto->preco  }}</span>
                                                     </h5>
                                                     <small class="fst-italic">{{ $produto->descricao }}</small>
-                                                    <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST">
-                                                        {{ csrf_field() }}
-                                                        <button type="submit" value="adicionar">Adicionar ao carrinho</button>
-                                                    </form>
+                                                    @auth
+                                                        <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            <button type="submit" value="adicionar">Adicionar ao carrinho</button>
+                                                        </form>
+                                                    @endauth
                                                 </div>
                                             </div>
                                         </div>

@@ -32,7 +32,7 @@
                     @endauth
                 </div>
                 <a href="{{route('cardapio')}}" class="btn btn-primary py-2 px-4">Faça seu pedido!</a>
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{ route('checkout') }}">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="badge badge-pill badge-primary">{{ session()->get('itens_carrinho')  ?? 0}}</span>
                 </a>

@@ -46,9 +46,19 @@ Route::post('/registro', 'UsuarioController@registro')->name('usuario.registro')
 
 Route::post('/pedido/adiciona/{produto}', 'PedidoController@adicionaProduto')->name('pedido.adiciona');
 
-Route::get('/checkout', function () {
+Route::post('/pedido/remove/{produto}', 'PedidoController@removeProduto')->name('pedido.remove');
 
-    $usuario = auth()->user();
-    $pedido = Pedido::where('situacao', null)->where('usuarioId', $usuario->id)->firstOrCreate(['usuarioId' => $usuario->id]);
-    return view('checkout', ['produtos' => $pedido->produtos]);
-})->name('checkout');
+//Route::get('/checkout', function () {
+//
+//    $usuario = auth()->user();
+//    $pedido = Pedido::where('situacao', null)->where('usuarioId', $usuario->id)->firstOrCreate(['usuarioId' => $usuario->id]);
+//    return view('checkout', ['produtos' => $pedido->produtos]);
+//})->name('checkout');
+
+Route::middleware('auth')->get('/checkout', 'PedidoController@checkout')->name('checkout');
+
+Route::post('/checkout/finaliza', 'PedidoController@finalizar')->name('pedido.finaliza');
+
+Route::post('/checkout/cupom/aplica', 'CupomController@aplicaCupom')->name('cupom.aplica');
+
+Route::get('/finalpedido/{pedido}', 'PedidoController@finalizaPedido')->name('pedido.finalizado');
