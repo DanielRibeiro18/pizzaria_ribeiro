@@ -70,3 +70,11 @@ Route::post('/checkout/finaliza', 'PedidoController@finalizar')->name('pedido.fi
 Route::post('/checkout/cupom/aplica', 'CupomController@aplicaCupom')->name('cupom.aplica');
 
 Route::get('/finalpedido/{pedido}', 'PedidoController@finalizaPedido')->name('pedido.finalizado');
+
+Route::get('/admin/adicional', 'AdicionaisController@list')->name('adicional.list');
+
+Route::post('admin/adicional', 'AdicionaisController@store')->name('adicional.store');
+
+Route::post('admin/adicional/{adicional}', 'AdicionaisController@delete')->name('adicional.delete');
+
+
