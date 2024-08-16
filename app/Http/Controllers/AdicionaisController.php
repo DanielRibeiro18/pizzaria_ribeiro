@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Adicionais;
+use App\Adicional;
 use App\Usuario;
 use Illuminate\Http\Request;
 
 class AdicionaisController extends Controller
 {
-    public function store(Request $request, Adicionais $adicional){
+    public function store(Request $request, Adicional $adicional){
 
         $adicional->nome = $request->nome;
         $adicional->valor = $request->valor;
@@ -19,12 +19,12 @@ class AdicionaisController extends Controller
     }
 
     public function list(Request $request){
-        $adicionais = Adicionais::all();
+        $adicionais = Adicional::all();
 
         return view('admin.produtos.adicionais.index', ['adicionais' => $adicionais]);
     }
 
-    public function delete(Request $request, Adicionais $adicional)
+    public function delete(Request $request, Adicional $adicional)
     {
         $adicional->delete();
 

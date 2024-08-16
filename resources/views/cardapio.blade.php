@@ -225,6 +225,8 @@
     </div>
     <!-- Menu End -->
 
+
+
     @include('components.footer');
 
 </body>

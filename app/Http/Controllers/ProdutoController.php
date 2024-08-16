@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Adicional;
 use App\Categoria;
 use App\Produto;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
-    public function cadastro(Request $request){
+    public function cadastro(Request $request)
+    {
 
         $produto = new Produto();
 
@@ -17,7 +19,7 @@ class ProdutoController extends Controller
         $produto->tamanho = $request->tamanho;
         $produto->descricao = $request->descricao;
 
-        if($request->hasFile('img') && $request->file('img')->isValid()){
+        if ($request->hasFile('img') && $request->file('img')->isValid()) {
             $requestImage = $request->img;
 
             $extension = $requestImage->extension();
@@ -38,7 +40,8 @@ class ProdutoController extends Controller
 
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
 
         $categorias = Categoria::all();
         return view('produto', ['categorias' => $categorias]);
@@ -52,8 +55,9 @@ class ProdutoController extends Controller
         $docemedia = Produto::where('tamanho', 'media')->where('categoriaId', 2)->get();
         $docegrande = Produto::where('tamanho', 'grande')->where('categoriaId', 2)->get();
         $bebidas = Produto::where('tamanho', null)->where('categoriaId', 3)->get();
+        $adicional = Adicional::all();
 
-        return view('cardapio', compact('salgmedia', 'salggrande', 'docemedia', 'docegrande', 'bebidas'));
+        return view('cardapio', compact('salgmedia', 'salggrande', 'docemedia', 'docegrande', 'bebidas', 'adicional'));
     }
 
 }

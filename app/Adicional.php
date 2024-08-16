@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Adicionais extends Model
+class Adicional extends Model
 {
+    protected $table = 'adicionais';
 }

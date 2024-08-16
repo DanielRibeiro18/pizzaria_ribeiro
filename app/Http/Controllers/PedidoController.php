@@ -18,14 +18,11 @@ class PedidoController extends Controller
 
         $pedido = Pedido::where('situacao', null)->where('usuarioId', $usuario->id)->firstOrCreate(['usuarioId' => $usuario->id]);
 
-
-        if ($prd = $pedido->produtos()->where('produtoId', $produto->id)->first()){
-
-            $pedido->produtos()->updateExistingPivot($produto->id, ['quantidade' => $prd->pivot->quantidade+1]);
-
-        } else{
-            $pedido->produtos()->attach($produto, ['quantidade' => 1]);
-        }
+        $pedido->produtos()->attach($produto, [
+            'adicional1Id' => $request->adicional1Id,
+            'adicional2Id' => $request->adicional2Id,
+            'observacao' => $request->observacao
+        ]);
 
         session(['itens_carrinho' => $pedido->produtos()->count()]);
 
@@ -53,12 +50,12 @@ class PedidoController extends Controller
             ->firstOrCreate(['usuarioId' => $usuario->id]);
 
         $produtos = $pedido->produtos;
-        $totalPreco = $produtos->map(function($produto){
+        $totalPreco = $produtos->map(function ($produto) {
             return $produto->preco * $produto->pivot->quantidade;
         })->sum();
 
-        if ($pedido->cupom != null){
-            $totalPreco = $totalPreco - (($totalPreco)*($pedido->cupom->valor/100));
+        if ($pedido->cupom != null) {
+            $totalPreco = $totalPreco - (($totalPreco) * ($pedido->cupom->valor / 100));
         }
 
         // Obtenha todos os bairros
@@ -71,7 +68,8 @@ class PedidoController extends Controller
         ]);
     }
 
-    public function finalizar(Request $request){
+    public function finalizar(Request $request)
+    {
 
         $usuario = auth()->user();
         $pedido = Pedido::where('situacao', null)
@@ -94,7 +92,8 @@ class PedidoController extends Controller
         return redirect(route('pedido.finalizado', $pedido->id));
     }
 
-    public function finalizaPedido(Pedido $pedido){
+    public function finalizaPedido(Pedido $pedido)
+    {
         return view('finalpedido', ['pedido' => $pedido]);
     }
 }
