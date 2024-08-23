@@ -93,8 +93,6 @@
                                                     </div>
                                                     <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                                                         <!-- Textbox Hidden -->
-                                                        <input id="salgmediaAdicional1Id" name="adicional1Id" value="" hidden>
-                                                        <input id="salgmediaAdicional2Id" name="adicional2Id" value="" hidden>
                                                         <div class="container">
                                                             <div class="row">
                                                                 @foreach($adicional as $item)
@@ -110,20 +108,23 @@
                                                                 @endforeach
                                                             </div>
                                                         </div>
-                                                        <!-- Caixa de Texto para Observação -->
-                                                        <div class="form-group mt-3">
-                                                            <label for="salgmediaObservacao" class="text-white">Observação:</label>
-                                                            <input type="text" class="form-control" id="salgmediaObservacao" name="observacao">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
                                                         <!-- Botão Adicionar ao Carrinho -->
                                                         @auth
                                                             <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST" class="d-inline">
                                                                 {{ csrf_field() }}
-                                                                <button type="submit" class="btn btn-success">Adicionar ao carrinho</button>
+                                                                <!-- Caixa de Texto para Observação -->
+                                                                <div class="form-group mt-3">
+                                                                    <label for="salgmediaObservacao" class="text-white">Observação:</label>
+                                                                    <input type="text" class="form-control" id="salgmediaObservacao" name="observacao">
+                                                                </div>
+                                                                <input id="salgmediaAdicional1Id" name="adicional1Id" value="" hidden>
+                                                                <input id="salgmediaAdicional2Id" name="adicional2Id" value="" hidden>
+                                                                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Adicionar ao carrinho</button>
                                                             </form>
                                                         @endauth
+                                                    </div>
+                                                    <div class="modal-footer">
+
                                                         <!-- Botão Fechar -->
                                                         <button type="button" onclick="location.reload()" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                                     </div>
@@ -179,20 +180,23 @@
                                                                 @endforeach
                                                             </div>
                                                         </div>
-                                                        <!-- Caixa de Texto para Observação -->
-                                                        <div class="form-group mt-3">
-                                                            <label for="salggrandeObservacao" class="text-white">Observação:</label>
-                                                            <input type="text" class="form-control" id="salggrandeObservacao" name="observacao">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
+
                                                         <!-- Botão Adicionar ao Carrinho -->
                                                         @auth
                                                             <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST" class="d-inline">
                                                                 {{ csrf_field() }}
-                                                                <button type="submit" class="btn btn-success">Adicionar ao carrinho</button>
+                                                                <!-- Caixa de Texto para Observação -->
+                                                                <div class="form-group mt-3">
+                                                                    <label for="salggrandeObservacao" class="text-white">Observação:</label>
+                                                                    <input type="text" class="form-control" id="salggrandeObservacao" name="observacao">
+                                                                </div>
+                                                                <input id="salgmediaAdicional1Id" name="adicional1Id" value="" hidden>
+                                                                <input id="salgmediaAdicional2Id" name="adicional2Id" value="" hidden>
+                                                                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Adicionar ao carrinho</button>
                                                             </form>
                                                         @endauth
+                                                    </div>
+                                                    <div class="modal-footer">
                                                         <!-- Botão Fechar -->
                                                         <button type="button" onclick="location.reload()" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                                     </div>

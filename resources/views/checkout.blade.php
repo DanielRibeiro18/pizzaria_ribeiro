@@ -7,9 +7,17 @@
     <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
     <span>{{ $produto->nome }}</span>
     <span>{{ $produto->preco }}</span>
-    <span>{{ $produto->pivot->quantidade }}</span>
+    @if($produto->pivot->adicional1 != null)
+        <span>{{ $produto->pivot->adicional1->nome }}</span>
+        <span>{{ $produto->pivot->adicional1->valor }}</span>
+    @endif
+    @if($produto->pivot->adicional2 != null)
+        <span>{{ $produto->pivot->adicional2->nome }}</span>
+        <span>{{ $produto->pivot->adicional2->valor }}</span>
+    @endif
+        <span>{{ $produto->pivot->observacao }}</span>
     <br>
-    <form action="{{ route('pedido.remove', $produto->id) }}" method="POST">
+    <form action="{{ route('pedido.remove', $produto->pivot->id) }}" method="POST">
         {{ csrf_field() }}
         <button type="submit" value="remover">Remover do carrinho</button>
     </form>

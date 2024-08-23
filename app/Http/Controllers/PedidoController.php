@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ItemPedido;
 use App\Pedido;
 use App\Produto;
 use App\Usuario;
@@ -18,7 +19,9 @@ class PedidoController extends Controller
 
         $pedido = Pedido::where('situacao', null)->where('usuarioId', $usuario->id)->firstOrCreate(['usuarioId' => $usuario->id]);
 
-        $pedido->produtos()->attach($produto, [
+//        $pedido->produtos()->attach($produto);
+
+        $pedido->produtos()->save($produto, [
             'adicional1Id' => $request->adicional1Id,
             'adicional2Id' => $request->adicional2Id,
             'observacao' => $request->observacao
@@ -29,13 +32,14 @@ class PedidoController extends Controller
         return redirect(route('cardapio'));
     }
 
-    public function removeProduto(Request $request, Produto $produto)
+    public function removeProduto(Request $request, ItemPedido $produto)
     {
         $usuario = auth()->user();
 
         $pedido = Pedido::where('situacao', null)->where('usuarioId', $usuario->id)->firstOrCreate(['usuarioId' => $usuario->id]);
 
-        $pedido->produtos()->detach($produto);
+//        $pedido->produtos()->detach($produto);
+        $produto->delete();
 
         session(['itens_carrinho' => $pedido->produtos->count()]);
 
@@ -50,9 +54,17 @@ class PedidoController extends Controller
             ->firstOrCreate(['usuarioId' => $usuario->id]);
 
         $produtos = $pedido->produtos;
-        $totalPreco = $produtos->map(function ($produto) {
-            return $produto->preco * $produto->pivot->quantidade;
-        })->sum();
+
+        $totalPreco = $produtos->sum->preco;
+
+        foreach($produtos as $produto){
+            if($produto->pivot->adicional1 != null){
+                $totalPreco += $produto->pivot->adicional1->valor;
+            }
+            if($produto->pivot->adicional2 != null){
+                $totalPreco += $produto->pivot->adicional2->valor;
+            }
+        }
 
         if ($pedido->cupom != null) {
             $totalPreco = $totalPreco - (($totalPreco) * ($pedido->cupom->valor / 100));
