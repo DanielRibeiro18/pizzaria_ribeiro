@@ -67,7 +67,7 @@ class PedidoController extends Controller
         }
 
         if ($pedido->cupom != null) {
-            $totalPreco = $totalPreco - (($totalPreco) * ($pedido->cupom->valor / 100));
+            $totalCupom = $totalPreco - (($totalPreco) * ($pedido->cupom->valor / 100));
         }
 
         // Obtenha todos os bairros

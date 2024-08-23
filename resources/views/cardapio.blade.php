@@ -155,16 +155,13 @@
                                             </div>
                                         </div>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="salggrandeModal" tabindex="-1" role="dialog" aria-labelledby="salggrandeModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal fade" id="salggrandeModal" tabindex="-1" role="dialog" aria-labelledby="salggrandeModalLabel" aria-hidden="true"><div class="modal-dialog modal-sm" role="document">
                                                 <div class="modal-content" style="background-color: #1d1b2c;">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title text-white" id="salggrandeModalLabel">Adicionais</h5>
                                                     </div>
                                                     <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                                                         <!-- Textbox Hidden -->
-                                                        <input id="salggrandeAdicional1Id" name="adicional1Id" value="" hidden>
-                                                        <input id="salggrandeAdicional2Id" name="adicional2Id" value="" hidden>
                                                         <div class="container">
                                                             <div class="row">
                                                                 @foreach($adicional as $item)
@@ -180,7 +177,6 @@
                                                                 @endforeach
                                                             </div>
                                                         </div>
-
                                                         <!-- Botão Adicionar ao Carrinho -->
                                                         @auth
                                                             <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST" class="d-inline">
@@ -190,13 +186,14 @@
                                                                     <label for="salggrandeObservacao" class="text-white">Observação:</label>
                                                                     <input type="text" class="form-control" id="salggrandeObservacao" name="observacao">
                                                                 </div>
-                                                                <input id="salgmediaAdicional1Id" name="adicional1Id" value="" hidden>
-                                                                <input id="salgmediaAdicional2Id" name="adicional2Id" value="" hidden>
+                                                                <input id="salggrandeAdicional1Id" name="adicional1Id" value="" hidden>
+                                                                <input id="salggrandeAdicional2Id" name="adicional2Id" value="" hidden>
                                                                 <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Adicionar ao carrinho</button>
                                                             </form>
                                                         @endauth
                                                     </div>
                                                     <div class="modal-footer">
+
                                                         <!-- Botão Fechar -->
                                                         <button type="button" onclick="location.reload()" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                                     </div>
@@ -252,16 +249,13 @@
                                             </div>
                                         </div>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="docemediaModal" tabindex="-1" role="dialog" aria-labelledby="docemediaModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal fade" id="docemediaModal" tabindex="-1" role="dialog" aria-labelledby="docemediaModalLabel" aria-hidden="true"><div class="modal-dialog modal-sm" role="document">
                                                 <div class="modal-content" style="background-color: #1d1b2c;">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title text-white" id="docemediaModalLabel">Adicionais</h5>
                                                     </div>
                                                     <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                                                         <!-- Textbox Hidden -->
-                                                        <input id="docemediaAdicional1Id" name="adicional1Id" value="" hidden>
-                                                        <input id="docemediaAdicional2Id" name="adicional2Id" value="" hidden>
                                                         <div class="container">
                                                             <div class="row">
                                                                 @foreach($adicional as $item)
@@ -277,20 +271,23 @@
                                                                 @endforeach
                                                             </div>
                                                         </div>
-                                                        <!-- Caixa de Texto para Observação -->
-                                                        <div class="form-group mt-3">
-                                                            <label for="docemediaObservacao" class="text-white">Observação:</label>
-                                                            <input type="text" class="form-control" id="docemediaObservacao" name="observacao">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
                                                         <!-- Botão Adicionar ao Carrinho -->
                                                         @auth
                                                             <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST" class="d-inline">
                                                                 {{ csrf_field() }}
-                                                                <button type="submit" class="btn btn-success">Adicionar ao carrinho</button>
+                                                                <!-- Caixa de Texto para Observação -->
+                                                                <div class="form-group mt-3">
+                                                                    <label for="docemediaObservacao" class="text-white">Observação:</label>
+                                                                    <input type="text" class="form-control" id="docemediaObservacao" name="observacao">
+                                                                </div>
+                                                                <input id="docemediaAdicional1Id" name="adicional1Id" value="" hidden>
+                                                                <input id="docemediaAdicional2Id" name="adicional2Id" value="" hidden>
+                                                                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Adicionar ao carrinho</button>
                                                             </form>
                                                         @endauth
+                                                    </div>
+                                                    <div class="modal-footer">
+
                                                         <!-- Botão Fechar -->
                                                         <button type="button" onclick="location.reload()" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                                     </div>
@@ -321,16 +318,13 @@
                                             </div>
                                         </div>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="docegrandeModal" tabindex="-1" role="dialog" aria-labelledby="docegrandeModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal fade" id="docegrandeModal" tabindex="-1" role="dialog" aria-labelledby="docegrandeModalLabel" aria-hidden="true"><div class="modal-dialog modal-sm" role="document">
                                                 <div class="modal-content" style="background-color: #1d1b2c;">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title text-white" id="docegrandeModalLabel">Adicionais</h5>
                                                     </div>
                                                     <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                                                         <!-- Textbox Hidden -->
-                                                        <input id="docegrandeAdicional1Id" name="adicional1Id" value="" hidden>
-                                                        <input id="docegrandeAdicional2Id" name="adicional2Id" value="" hidden>
                                                         <div class="container">
                                                             <div class="row">
                                                                 @foreach($adicional as $item)
@@ -346,20 +340,23 @@
                                                                 @endforeach
                                                             </div>
                                                         </div>
-                                                        <!-- Caixa de Texto para Observação -->
-                                                        <div class="form-group mt-3">
-                                                            <label for="docegrandeObservacao" class="text-white">Observação:</label>
-                                                            <input type="text" class="form-control" id="docegrandeObservacao" name="observacao">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
                                                         <!-- Botão Adicionar ao Carrinho -->
                                                         @auth
                                                             <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST" class="d-inline">
                                                                 {{ csrf_field() }}
-                                                                <button type="submit" class="btn btn-success">Adicionar ao carrinho</button>
+                                                                <!-- Caixa de Texto para Observação -->
+                                                                <div class="form-group mt-3">
+                                                                    <label for="docegrandeObservacao" class="text-white">Observação:</label>
+                                                                    <input type="text" class="form-control" id="docegrandeObservacao" name="observacao">
+                                                                </div>
+                                                                <input id="docegrandeAdicional1Id" name="adicional1Id" value="" hidden>
+                                                                <input id="docegrandeAdicional2Id" name="adicional2Id" value="" hidden>
+                                                                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Adicionar ao carrinho</button>
                                                             </form>
                                                         @endauth
+                                                    </div>
+                                                    <div class="modal-footer">
+
                                                         <!-- Botão Fechar -->
                                                         <button type="button" onclick="location.reload()" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                                     </div>
