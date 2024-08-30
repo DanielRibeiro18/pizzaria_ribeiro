@@ -41,13 +41,23 @@ class PedidoController extends Controller
 //        $pedido->produtos()->detach($produto);
         $produto->delete();
 
-        session(['itens_carrinho' => $pedido->produtos->count()]);
+        session(['itens_carrinho' => $totalProdutos = $pedido->produtos->count()]);
+
+        if($totalProdutos == 0){
+            return redirect(route('cardapio'));
+        }
 
         return redirect(route('checkout'));
     }
 
     public function checkout()
     {
+        $totalProdutos = session()->get('itens_carrinho');
+
+        if(intval($totalProdutos) == 0){
+            return redirect(route('cardapio'));
+        }
+
         $usuario = auth()->user();
         $pedido = Pedido::where('situacao', null)
             ->where('usuarioId', $usuario->id)
@@ -55,27 +65,58 @@ class PedidoController extends Controller
 
         $produtos = $pedido->produtos;
 
-        $totalPreco = $produtos->sum->preco;
+        $subtotal = $produtos->sum->preco;
+
+        $totalAdicionais = 0;
 
         foreach($produtos as $produto){
             if($produto->pivot->adicional1 != null){
-                $totalPreco += $produto->pivot->adicional1->valor;
+                $totalAdicionais += $produto->pivot->adicional1->valor;
             }
             if($produto->pivot->adicional2 != null){
-                $totalPreco += $produto->pivot->adicional2->valor;
+                $totalAdicionais += $produto->pivot->adicional2->valor;
             }
         }
 
-        if ($pedido->cupom != null) {
-            $totalCupom = $totalPreco - (($totalPreco) * ($pedido->cupom->valor / 100));
+        $totalProdutos = 0;
+
+        $dia = now()->format('D');
+
+        if ($pedido->cupom != null && $pedido->cupom->data_valida == $dia) {
+
+            $categorias = $pedido->cupom->categorias->pluck('id')->toArray();
+
+            foreach($produtos as $produto){
+                if(in_array($produto->categoria->id, $categorias)){
+
+                    $totalProdutos += $produto->preco - ($produto->preco * ($pedido->cupom->valor / 100));
+
+                } else {
+                    $totalProdutos += $produto->preco;
+                }
+
+            }
+
+//            $totalCupom = $totalPreco - ($totalPreco * ($pedido->cupom->valor / 100));
+
         }
+
+        $totalPreco = $totalProdutos + $totalAdicionais;
+
+        $nomeCupom = $pedido->cupom->nome;
+        $valorCupom = $pedido->cupom->valor;
+        $descCategoria = $pedido->cupom->categorias->first()->descricao;
 
         // Obtenha todos os bairros
         $bairros = Bairro::all();
 
         return view('checkout', [
             'produtos' => $produtos,
-            'totalPreco' => $totalPreco,
+            'totalPreco' => $subtotal + $totalAdicionais,
+            'totalCupom' => $totalPreco,
+            'nomeCupom' => $nomeCupom,
+            'valorCupom' => $valorCupom,
+            'descCategoria' => $descCategoria,
             'bairros' => $bairros
         ]);
     }

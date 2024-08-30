@@ -23,6 +23,8 @@
     </form>
 @endforeach
 
+
+
 <form action="{{ route('pedido.finaliza') }}" method="POST">
     {{ csrf_field() }}
 
@@ -31,6 +33,8 @@
 
 
         <h3>Total: <span id="totalPreco">{{ $totalPreco}}</span></h3>
+        <h3>Total: <span id="totalCupom">{{ $totalCupom}}</span></h3>
+        <h3>Cupom aplicado: <span id="nomeCupom">{{ $nomeCupom}}</span><span id="valorCupom"> - valor de {{ $valorCupom}}% </span> <span id="descCategoria"> aplicado às {{ $descCategoria}}</span></h3>
         <label for="forma_pagamento">Forma de Pagamento</label>
         <select id="forma_pagamento" name="forma_pagamento" class="form-control" onchange="checkFormaPagamento()">
             <option value="cartao">Cartão</option>

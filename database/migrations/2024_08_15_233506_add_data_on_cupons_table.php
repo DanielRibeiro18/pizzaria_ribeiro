@@ -14,7 +14,7 @@ class AddDataOnCuponsTable extends Migration
     public function up()
     {
         Schema::table('cupoms', function (Blueprint $table) {
-            $table->date('data_valida')->nullable();
+            $table->string('data_valida', 3)->nullable();
         });
     }
 
