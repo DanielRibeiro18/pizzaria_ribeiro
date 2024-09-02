@@ -15,7 +15,7 @@
         <span>{{ $produto->pivot->adicional2->nome }}</span>
         <span>{{ $produto->pivot->adicional2->valor }}</span>
     @endif
-        <span>{{ $produto->pivot->observacao }}</span>
+    <span>{{ $produto->pivot->observacao }}</span>
     <br>
     <form action="{{ route('pedido.remove', $produto->pivot->id) }}" method="POST">
         {{ csrf_field() }}
@@ -213,6 +213,5 @@
         });
     });
 </script>
-
 
 

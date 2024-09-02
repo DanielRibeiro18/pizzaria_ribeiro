@@ -23,7 +23,7 @@ class CupomSeeder extends Seeder
         $cupom->nome = 'doceribeiro';
         $cupom->valor = '10';
         $cupom->ativo = true;
-        $cupom->data_valida = 'Thu';
+        $cupom->data_valida = 'Fri';
         $cupom->save();
 
     }

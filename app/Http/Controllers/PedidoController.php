@@ -10,16 +10,23 @@ use App\Bairro;
 use App\Cupom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class PedidoController extends Controller
 {
     public function adicionaProduto(Request $request, Produto $produto)
     {
+        // Obtenha o dia da semana em formato abreviado (ex: 'Tue', 'Wed')
+        $dia = now()->format('D');
+        $horaAtual = now()->hour;
+
+        // Verifique se o dia está entre terça ('Tue') e domingo ('Sun') e se a hora está entre 18 e 23
+        if (!in_array($dia, ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']) || $horaAtual < 18 || $horaAtual >= 23) {
+            return redirect(route('cardapio'))->withErrors(['message' => 'O carrinho está disponível apenas de terça-feira a domingo, das 18h às 23h.']);
+        }
+
         $usuario = auth()->user();
-
         $pedido = Pedido::where('situacao', null)->where('usuarioId', $usuario->id)->firstOrCreate(['usuarioId' => $usuario->id]);
-
-//        $pedido->produtos()->attach($produto);
 
         $pedido->produtos()->save($produto, [
             'adicional1Id' => $request->adicional1Id,
@@ -97,15 +104,22 @@ class PedidoController extends Controller
 
             }
 
-//            $totalCupom = $totalPreco - ($totalPreco * ($pedido->cupom->valor / 100));
-
+        } else {
+            $totalProdutos += $subtotal;
         }
 
         $totalPreco = $totalProdutos + $totalAdicionais;
 
-        $nomeCupom = $pedido->cupom->nome;
-        $valorCupom = $pedido->cupom->valor;
-        $descCategoria = $pedido->cupom->categorias->first()->descricao;
+
+        if($pedido->cupom != null){
+            $nomeCupom = $pedido->cupom->nome;
+            $valorCupom = $pedido->cupom->valor;
+            $descCategoria = $pedido->cupom->categorias->first()->descricao;
+        } else {
+            $nomeCupom = null;
+            $valorCupom = null;
+            $descCategoria = null;
+        }
 
         // Obtenha todos os bairros
         $bairros = Bairro::all();
