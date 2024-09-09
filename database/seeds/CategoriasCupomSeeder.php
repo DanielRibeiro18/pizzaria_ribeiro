@@ -21,5 +21,15 @@ class CategoriasCupomSeeder extends Seeder
         $catcupom->categoriaId = '2';
         $catcupom->cupomId = '2';
         $catcupom->save();
+
+        $catcupom = new CategoriaCupom();
+        $catcupom->categoriaId = '2';
+        $catcupom->cupomId = '3';
+        $catcupom->save();
+
+        $catcupom = new CategoriaCupom();
+        $catcupom->categoriaId = '1';
+        $catcupom->cupomId = '4';
+        $catcupom->save();
     }
 }

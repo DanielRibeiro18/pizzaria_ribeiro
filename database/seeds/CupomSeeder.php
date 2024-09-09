@@ -16,14 +16,28 @@ class CupomSeeder extends Seeder
         $cupom->nome = 'salgribeiro';
         $cupom->valor = '10';
         $cupom->ativo = true;
-        $cupom->data_valida = 'Tue';
+        $cupom->data_valida = 'Mon';
         $cupom->save();
 
         $cupom = new Cupom();
         $cupom->nome = 'doceribeiro';
         $cupom->valor = '10';
         $cupom->ativo = true;
-        $cupom->data_valida = 'Fri';
+        $cupom->data_valida = 'Tue';
+        $cupom->save();
+
+        $cupom = new Cupom();
+        $cupom->nome = 'doce5';
+        $cupom->valor = '5';
+        $cupom->ativo = true;
+        $cupom->data_valida = 'Mon';
+        $cupom->save();
+
+        $cupom = new Cupom();
+        $cupom->nome = 'salg5';
+        $cupom->valor = '5';
+        $cupom->ativo = true;
+        $cupom->data_valida = 'Tue';
         $cupom->save();
 
     }

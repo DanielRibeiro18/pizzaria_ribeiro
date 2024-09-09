@@ -1,7 +1,10 @@
-{{--@foreach($produtos as $produto)--}}
-{{--    {{ $produto->nome }}--}}
-{{--    {{ $produto->tamanho }}--}}
-{{--@endforeach--}}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+@include('components.head', ['title'=>'Checkout'])
+
+<body>
+@include('components.navbar', ['theme'=>'Finalize seu pedido!']);
 
 @foreach($produtos as $produto)
     <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
@@ -60,7 +63,7 @@
     <!-- Valor dos Produtos -->
     <div class="form-group">
         <label for="valor_produtos">Valor dos Produtos</label>
-        <input type="text" id="valor_produtos" name="valor_produtos" class="form-control" value="{{ $totalPreco}}" readonly>
+        <input type="text" id="valor_produtos" name="valor_produtos" class="form-control" value="{{ $totalCupom}}" readonly>
     </div>
 
     <!-- Taxa de Entrega -->
@@ -169,7 +172,7 @@
         const numeroInput = document.querySelector('#numero');
         const taxaEntregaInput = document.querySelector('#taxa_entrega');
         const subtotalInput = document.querySelector('#subtotal');
-        const totalPrecoElement = document.querySelector('#totalPreco');
+        const totalPrecoElement = document.querySelector('#totalCupom');
         const bairros = @json($bairros);
 
         cepInput.addEventListener('blur', function() {
@@ -214,4 +217,6 @@
     });
 </script>
 
-
+@include('components.footer');
+</body>
+</html>

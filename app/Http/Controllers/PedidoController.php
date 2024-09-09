@@ -21,7 +21,7 @@ class PedidoController extends Controller
         $horaAtual = now()->hour;
 
         // Verifique se o dia está entre terça ('Tue') e domingo ('Sun') e se a hora está entre 18 e 23
-        if (!in_array($dia, ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']) || $horaAtual < 18 || $horaAtual >= 23) {
+        if (!in_array($dia, ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']) || $horaAtual < 17 || $horaAtual >= 23) {
             return redirect(route('cardapio'))->withErrors(['message' => 'O carrinho está disponível apenas de terça-feira a domingo, das 18h às 23h.']);
         }
 
