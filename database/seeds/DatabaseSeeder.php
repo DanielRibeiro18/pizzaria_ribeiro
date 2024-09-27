@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CupomSeeder::class);
         $this->call(AdicionalSeeder::class);
         $this->call(CategoriasCupomSeeder::class);
+        $this->call(HorarioSeeder::class);
     }
 }

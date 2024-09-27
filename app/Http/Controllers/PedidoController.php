@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Horario;
 use App\ItemPedido;
 use App\Pedido;
 use App\Produto;
@@ -20,8 +21,9 @@ class PedidoController extends Controller
         $dia = now()->format('D');
         $horaAtual = now()->hour;
 
-        // Verifique se o dia está entre terça ('Tue') e domingo ('Sun') e se a hora está entre 18 e 23
-        if (!in_array($dia, ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']) || $horaAtual < 17 || $horaAtual >= 23) {
+        $horario = Horario::where('dia_semana', Horario::hoje())->first();
+
+        if(!$horario->estaAberto()){
             return redirect(route('cardapio'))->withErrors(['message' => 'O carrinho está disponível apenas de terça-feira a domingo, das 18h às 23h.']);
         }
 

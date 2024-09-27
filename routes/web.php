@@ -77,4 +77,8 @@ Route::post('admin/adicional', 'AdicionaisController@store')->name('adicional.st
 
 Route::post('admin/adicional/{adicional}', 'AdicionaisController@delete')->name('adicional.delete');
 
+Route::get('/admin/horario', 'HorarioController@list')->name('horario.list');
 
+Route::get('/admin/horario/{horario}/edit', 'HorarioController@edit')->name('horario.edit');
+
+Route::put('/admin/horario/{horario}', 'HorarioController@update')->name('horario.update');

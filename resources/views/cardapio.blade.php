@@ -75,6 +75,7 @@
                                                 <div class="w-100 d-flex flex-column text-start ps-4">
                                                     <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                         <span>{{ $produto->nome }}</span>
+                                                        <span><input type="checkbox" id="salgmmeioameio" style="font-size: 12px;"> Meio a meio</span>
                                                         <span class="text-primary">R${{ $produto->preco }}</span>
                                                     </h5>
                                                     <small class="fst-italic">{{ $produto->descricao }}</small>
@@ -144,6 +145,7 @@
                                                 <div class="w-100 d-flex flex-column text-start ps-4">
                                                     <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                         <span>{{ $produto->nome }}</span>
+                                                        <span><input type="checkbox" id="salggmeioameio" style="font-size: 12px;"> Meio a meio</span>
                                                         <span class="text-primary">R${{ $produto->preco }}</span>
                                                     </h5>
                                                     <small class="fst-italic">{{ $produto->descricao }}</small>
@@ -238,6 +240,7 @@
                                                 <div class="w-100 d-flex flex-column text-start ps-4">
                                                     <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                         <span>{{ $produto->nome }}</span>
+                                                        <span><input type="checkbox" id="docemmeioameio" style="font-size: 12px;"> Meio a meio</span>
                                                         <span class="text-primary">R${{ $produto->preco }}</span>
                                                     </h5>
                                                     <small class="fst-italic">{{ $produto->descricao }}</small>
@@ -307,6 +310,7 @@
                                                 <div class="w-100 d-flex flex-column text-start ps-4">
                                                     <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                         <span>{{ $produto->nome }}</span>
+                                                        <span><input type="checkbox" id="docegmeioameio" style="font-size: 12px;"> Meio a meio</span>
                                                         <span class="text-primary">R${{ $produto->preco }}</span>
                                                     </h5>
                                                     <small class="fst-italic">{{ $produto->descricao }}</small>

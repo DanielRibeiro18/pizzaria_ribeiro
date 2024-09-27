@@ -12,31 +12,70 @@ class ProdutoController extends Controller
     public function cadastro(Request $request)
     {
 
-        $produto = new Produto();
+        // Verificar se a categoria selecionada é bebida (ID 3)
+        if ($request->categoria == 3) {
+            // Inserção única para bebida
+            $produtobebida = new Produto();
 
-        $produto->nome = $request->nome;
-        $produto->preco = $request->preco;
-        $produto->tamanho = $request->tamanho;
-        $produto->descricao = $request->descricao;
+            $produtobebida->nome = $request->nome;
+            $produtobebida->preco = $request->precobebida; // Preço da bebida
+            $produtobebida->tamanho = null; // Tamanho vazio para bebida
+            $produtobebida->descricao = $request->descricao;
+            $produtobebida->ativo = true;
 
-        if ($request->hasFile('img') && $request->file('img')->isValid()) {
-            $requestImage = $request->img;
+            // Processamento da imagem, se houver
+            if ($request->hasFile('img') && $request->file('img')->isValid()) {
+                $requestImage = $request->img;
+                $extension = $requestImage->extension();
+                $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+                $requestImage->move(public_path('site/img/produto'), $imageName);
+                $produtobebida->img = $imageName;
+            }
 
-            $extension = $requestImage->extension();
+            $produtobebida->categoriaId = $request->categoria;
+            $produtobebida->save(); // Salvar o produto de bebida
 
-            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+        } else {
+            // Primeira inserção com tamanho "Média"
+            $produtom = new Produto();
 
-            $requestImage->move(public_path('site\img\produto'), $imageName);
+            $produtom->nome = $request->nome;
+            $produtom->preco = $request->precomedia; // Preço da média
+            $produtom->tamanho = 'Média'; // Tamanho definido como "Média"
+            $produtom->descricao = $request->descricao;
+            $produtom->ativo = true;
 
-            $produto->img = $imageName;
+            // Processamento da imagem, se houver
+            if ($request->hasFile('img') && $request->file('img')->isValid()) {
+                $requestImage = $request->img;
+                $extension = $requestImage->extension();
+                $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+                $requestImage->move(public_path('site/img/produto'), $imageName);
+                $produtom->img = $imageName;
+            }
 
+            $produtom->categoriaId = $request->categoria;
+            $produtom->save(); // Salvar o produto com tamanho "Média"
+
+            // Segunda inserção com tamanho "Grande"
+            $produtog = new Produto();
+
+            $produtog->nome = $request->nome;
+            $produtog->preco = $request->precogrande; // Preço da grande
+            $produtog->tamanho = 'Grande'; // Tamanho definido como "Grande"
+            $produtog->descricao = $request->descricao;
+            $produtog->ativo = true;
+
+            // Usar a mesma imagem da primeira inserção, se houver
+            if (isset($imageName)) {
+                $produtog->img = $imageName;
+            }
+
+            $produtog->categoriaId = $request->categoria;
+            $produtog->save(); // Salvar o produto com tamanho "Grande"
         }
 
-        $produto->categoriaId = $request->categoria;
-
-        $produto->save();
-
-        return redirect(route('produto'));
+        return redirect(route('produto'))->with('success', 'Produto criado com sucesso!');
 
     }
 
