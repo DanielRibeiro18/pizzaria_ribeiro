@@ -17,4 +17,8 @@ class ItemPedido extends Pivot
         return $this->hasOne(Adicional::class, 'id','adicional2Id');
     }
 
+    public function metade(){
+        return $this->hasOne(Produto::class, 'id','metadeId');
+    }
+
 }

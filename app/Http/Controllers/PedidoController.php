@@ -30,10 +30,20 @@ class PedidoController extends Controller
         $usuario = auth()->user();
         $pedido = Pedido::where('situacao', null)->where('usuarioId', $usuario->id)->firstOrCreate(['usuarioId' => $usuario->id]);
 
+        $eMeioaMeio = null;
+
+        if($request->metadeId == ''){
+            $eMeioaMeio = false;
+        } else {
+            $eMeioaMeio = true;
+        }
+
         $pedido->produtos()->save($produto, [
             'adicional1Id' => $request->adicional1Id,
             'adicional2Id' => $request->adicional2Id,
-            'observacao' => $request->observacao
+            'observacao' => $request->observacao,
+            'eMeioaMeio' => $eMeioaMeio,
+            'metadeId' => $request->metadeId
         ]);
 
         session(['itens_carrinho' => $pedido->produtos()->count()]);
@@ -74,8 +84,6 @@ class PedidoController extends Controller
 
         $produtos = $pedido->produtos;
 
-        $subtotal = $produtos->sum->preco;
-
         $totalAdicionais = 0;
 
         foreach($produtos as $produto){
@@ -98,16 +106,46 @@ class PedidoController extends Controller
             foreach($produtos as $produto){
                 if(in_array($produto->categoria->id, $categorias)){
 
-                    $totalProdutos += $produto->preco - ($produto->preco * ($pedido->cupom->valor / 100));
+                    if($produto->pivot->eMeioaMeio){
+                        $metade = $produto->pivot->metade;
+
+                        $media = ($produto->preco + $metade->preco ) / 2;
+
+                        $totalProdutos += $media - ($media * ($pedido->cupom->valor / 100));
+                    } else {
+                        $totalProdutos += $produto->preco - ($produto->preco * ($pedido->cupom->valor / 100));
+                    }
 
                 } else {
-                    $totalProdutos += $produto->preco;
+
+                    if($produto->pivot->eMeioaMeio){
+                        $metade = $produto->pivot->metade;
+
+                        $media = ($produto->preco + $metade->preco ) / 2;
+
+                        $totalProdutos += $media;
+                    } else {
+                        $totalProdutos += $produto->preco;
+                    }
+
                 }
 
             }
 
         } else {
-            $totalProdutos += $subtotal;
+
+            foreach ($produtos as $produto){
+                if($produto->pivot->eMeioaMeio){
+                    $metade = $produto->pivot->metade;
+
+                    $media = ($produto->preco + $metade->preco ) / 2;
+
+                    $totalProdutos += $media;
+                } else {
+                    $totalProdutos += $produto->preco;
+                }
+            }
+
         }
 
         $totalPreco = $totalProdutos + $totalAdicionais;
@@ -128,7 +166,7 @@ class PedidoController extends Controller
 
         return view('checkout', [
             'produtos' => $produtos,
-            'totalPreco' => $subtotal + $totalAdicionais,
+            'totalPreco' => $totalProdutos + $totalAdicionais,
             'totalCupom' => $totalPreco,
             'nomeCupom' => $nomeCupom,
             'valorCupom' => $valorCupom,

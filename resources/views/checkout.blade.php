@@ -10,6 +10,11 @@
     <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
     <span>{{ $produto->nome }}</span>
     <span>{{ $produto->preco }}</span>
+    @if($produto->pivot->eMeioaMeio)
+        <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->pivot->metade->img) }}" alt="" style="width: 80px;">
+        <span>{{ $produto->pivot->metade->nome }}</span>
+        <span>{{ $produto->pivot->metade->preco }}</span>
+    @endif
     @if($produto->pivot->adicional1 != null)
         <span>{{ $produto->pivot->adicional1->nome }}</span>
         <span>{{ $produto->pivot->adicional1->valor }}</span>

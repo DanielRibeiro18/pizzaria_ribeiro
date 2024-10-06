@@ -10,8 +10,8 @@
 <body>
     <h1>Pedido finalizado com sucesso!</h1>
 
-    <span>{{ $pedido->subtotal }}</span> <br>
-    <span>{{ $pedido->taxa_entrega }}</span> <br>
+    <span>Subtotal: {{ $pedido->subtotal }}</span> <br>
+    <span>Taxa de entrega: {{ $pedido->taxa_entrega }}</span> <br>
     <span>{{ $pedido->valor_produtos }}</span> <br>
     <span>{{ $pedido->endereco }}</span> <br>
 
