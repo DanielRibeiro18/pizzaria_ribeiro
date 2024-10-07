@@ -165,6 +165,7 @@
                                                         <div class="row">
                                                             <h5 class="modal-title text-white" style="margin-bottom: 20px;">SABORES DOCES</h5>
                                                             @foreach($docemedia as $docem)
+                                                                @if($docem->ativo)
                                                                 <div class="col-md-4 col-sm-6 mb-3 d-flex align-items-stretch">
                                                                     <div class="card w-100">
                                                                         <div class="card-body d-flex flex-column text-center">
@@ -175,6 +176,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                @endif
                                                             @endforeach
                                                         </div>
                                                     </div>
@@ -384,6 +386,7 @@
                                                         <div class="row">
                                                             <h5 class="modal-title text-white" style="margin-bottom: 20px;">SABORES DOCES</h5>
                                                             @foreach($docegrande as $doce)
+                                                                @if($doce->ativo)
                                                                 <div class="col-md-4 col-sm-6 mb-3 d-flex align-items-stretch">
                                                                     <div class="card w-100">
                                                                         <div class="card-body d-flex flex-column text-center">
@@ -394,6 +397,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                @endif
                                                             @endforeach
                                                         </div>
                                                     </div>
@@ -609,6 +613,7 @@
                                                         <div class="row">
                                                             <h5 class="modal-title text-white" style="margin-bottom: 20px;">SABORES SALGADOS</h5>
                                                             @foreach($salgmedia as $salg)
+                                                                @if($salg->ativo)
                                                                     <div class="col-md-4 col-sm-6 mb-3 d-flex align-items-stretch">
                                                                         <div class="card w-100">
                                                                             <div class="card-body d-flex flex-column text-center">
@@ -619,6 +624,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                @endif
                                                             @endforeach
                                                         </div>
                                                     </div>
@@ -828,6 +834,7 @@
                                                         <div class="row">
                                                             <h5 class="modal-title text-white" style="margin-bottom: 20px;">SABORES SALGADOS</h5>
                                                             @foreach($salgmedia as $salg)
+                                                                @if($salg->ativo)
                                                                 <div class="col-md-4 col-sm-6 mb-3 d-flex align-items-stretch">
                                                                     <div class="card w-100">
                                                                         <div class="card-body d-flex flex-column text-center">
@@ -838,6 +845,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                @endif
                                                             @endforeach
                                                         </div>
                                                     </div>
