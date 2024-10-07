@@ -69,6 +69,7 @@
                         <div id="tab-1" class="tab-pane fade show p-0 active">
                             <div class="row g-4">
                                 @foreach($salgmedia as $produto)
+                                    @if($produto->ativo)
                                     <div class="col-lg-6">
                                         <div class="d-flex align-items-center">
                                             <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
@@ -145,7 +146,7 @@
                                                         <div class="row">
                                                             <h5 class="modal-title text-white" style="margin-bottom: 20px;">SABORES SALGADOS</h5>
                                                             @foreach($salgmedia as $salg)
-                                                                @if($salg->id !== $produto->id)
+                                                                @if($salg->id !== $produto->id and $salg->ativo)
                                                                     <div class="col-md-4 col-sm-6 mb-3 d-flex align-items-stretch">
                                                                         <div class="card w-100">
                                                                             <div class="card-body d-flex flex-column text-center">
@@ -278,7 +279,7 @@
                                             });
                                         });
                                     </script>
-
+                                    @endif
                                 @endforeach
 
                             </div>
@@ -287,6 +288,7 @@
                             <div class="row g-4">
 
                                 @foreach($salggrande as $produto)
+                                    @if($produto->ativo)
                                     <div class="col-lg-6">
                                         <div class="d-flex align-items-center">
                                             <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
@@ -363,7 +365,7 @@
                                                         <div class="row">
                                                             <h5 class="modal-title text-white" style="margin-bottom: 20px;">SABORES SALGADOS</h5>
                                                             @foreach($salggrande as $salg)
-                                                                @if($salg->id !== $produto->id)
+                                                                @if($salg->id !== $produto->id and $salg->ativo)
                                                                     <div class="col-md-4 col-sm-6 mb-3 d-flex align-items-stretch">
                                                                         <div class="card w-100">
                                                                             <div class="card-body d-flex flex-column text-center">
@@ -497,7 +499,7 @@
                                             });
                                         });
                                     </script>
-
+                                    @endif
                                 @endforeach
 
                             </div>
@@ -530,6 +532,7 @@
                         <div id="tab-3" class="tab-pane fade show p-0 active">
                             <div class="row g-4">
                                 @foreach($docemedia as $produto)
+                                    @if($produto->ativo)
                                     <div class="col-lg-6">
                                         <div class="d-flex align-items-center">
                                             <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
@@ -623,7 +626,7 @@
                                                         <div class="row">
                                                             <h5 class="modal-title text-white" style="margin-bottom: 20px;">SABORES DOCES</h5>
                                                             @foreach($docemedia as $doce)
-                                                                @if($doce->id !== $produto->id)
+                                                                @if($doce->id !== $produto->id and $doce->ativo)
                                                                 <div class="col-md-4 col-sm-6 mb-3 d-flex align-items-stretch">
                                                                     <div class="card w-100">
                                                                         <div class="card-body d-flex flex-column text-center">
@@ -740,7 +743,7 @@
                                             });
                                         });
                                     </script>
-
+                                    @endif
                                 @endforeach
 
                             </div>
@@ -748,6 +751,7 @@
                         <div id="tab-4" class="tab-pane fade show p-0">
                             <div class="row g-4">
                                 @foreach($docegrande as $produto)
+                                    @if($produto->ativo)
                                     <div class="col-lg-6">
                                         <div class="d-flex align-items-center">
                                             <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
@@ -958,7 +962,7 @@
                                             });
                                         });
                                     </script>
-
+                                    @endif
                                 @endforeach
 
                             </div>
