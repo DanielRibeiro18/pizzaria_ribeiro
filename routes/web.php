@@ -34,6 +34,10 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
+Route::get('/admin', 'DashboardController@showDashboard')->name('dashboard');
+
+
+
 Route::get('/produto', 'ProdutoController@create')->name('produto');
 
 Route::post('/cadproduto', 'ProdutoController@cadastro')->name('produto.cadastro');

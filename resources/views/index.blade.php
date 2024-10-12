@@ -27,7 +27,6 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0 pe-4">
                     <a href="{{route('index')}}" class="nav-item nav-link">Home</a>
-                    <a href="{{route('sobre_nos')}}" class="nav-item nav-link">Sobre</a>
                     <a href="{{route('contato')}}" class="nav-item nav-link">Contato</a>
                     @guest
                         <a href="{{route('registro')}}" class="nav-item nav-link">Registro</a>
@@ -38,6 +37,11 @@
                         <a href="{{route('logout')}}" class="nav-item nav-link">Logout</a>
                     @endauth
                 </div>
+                @auth
+                    @if(auth()->user()->admin)
+                        <a href="{{route('dashboard')}}" class="btn btn-primary py-2 px-4" style="margin-right: 20px;">Área admin</a>
+                    @endif
+                @endauth
                 <a href="{{route('cardapio')}}" class="btn btn-primary py-2 px-4">Faça seu pedido!</a>
                 <a class="nav-link" href="{{ route('checkout') }}">
                     <i class="fas fa-shopping-cart"></i>

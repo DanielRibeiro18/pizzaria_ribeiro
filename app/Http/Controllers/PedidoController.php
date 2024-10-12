@@ -201,6 +201,11 @@ class PedidoController extends Controller
 
     public function finalizaPedido(Pedido $pedido)
     {
+        // Carrega os produtos relacionados ao pedido
+        $pedido->load('produtos');
+
+        // Retorna a view com o pedido
         return view('finalpedido', ['pedido' => $pedido]);
     }
+
 }
