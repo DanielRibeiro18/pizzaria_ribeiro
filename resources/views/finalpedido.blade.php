@@ -10,7 +10,6 @@
 <body>
     <h1>Pedido finalizado com sucesso!</h1>
 
-
     @foreach($pedido->produtos as $produto)
         <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
         <span>{{ $produto->nome }}</span>

@@ -126,14 +126,10 @@
             text-align: center; /* Centraliza o texto */
         }
 
-
-
     </style>
 </head>
 <body>
 <div class="dashboard-container">
-
-
 
     <div class="sidebar">
         <!-- Logo -->
@@ -153,9 +149,6 @@
         <a href="#">Cupons</a>
     </div>
 
-
-
-
     <!-- Main Content -->
     <div class="content">
 
@@ -174,71 +167,108 @@
             </div>
         </div>
 
-        <div>
-
-            <h2>Pedidos</h2>
-            <ul>
-                @foreach($pedidos as $pedido)
-                    <li>Pedido #{{ $pedido->id }} - Total: R$ {{ $pedido->subtotal }}</li>
-                @endforeach
-            </ul>
-
-            <h2>Produtos</h2>
-            <ul>
-                @foreach($produtos as $produto)
-                    <li>{{ $produto->nome }} - Preço: R$ {{ $produto->preco }}</li>
-                @endforeach
-            </ul>
-
-            <h2>Usuários</h2>
-            <ul>
-                @foreach($usuarios as $usuario)
-                    <li>{{ $usuario->nome }} - Email: {{ $usuario->email }}</li>
-                @endforeach
-            </ul>
+        <div class="row">
+            <div class="col-md-12 text-right mb-4">
+                <button id="btn-diario" class="btn btn-primary">Gráfico Diário</button>
+                <button id="btn-semanal" class="btn btn-primary">Gráfico Semanal</button>
+                <button id="btn-mensal" class="btn btn-primary">Gráfico Mensal</button>
+            </div>
         </div>
 
+        <div id="grafico-container" style="width: 100%; height: 400px;"></div>
 
-        <!-- Gráfico de Colunas -->
-        <div id="chart_div"></div>
+        <script type="text/javascript">
+            // Carregar a biblioteca do Google Charts
+            google.charts.load('current', {'packages':['corechart']});
+
+            // Função para desenhar o gráfico
+            function drawChart(graficoDados) {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Produto');
+                data.addColumn('number', 'Quantidade');
+
+                // Adiciona os dados ao gráfico
+                graficoDados.forEach(function(item) {
+                    data.addRow([item.produto, item.quantidade]);
+                });
+
+                // Configura opções do gráfico
+                var options = {
+                    title: 'Vendas de Produtos',
+                    width: '100%',
+                    height: 400,
+                    backgroundColor: '#0f172b',
+                    colors: ['#FA8032'],
+                    titleTextStyle: {
+                        color: '#FFFFFF' // Cor do título em branco
+                    },
+                    hAxis: {
+                        textStyle: {
+                            color: '#FFFFFF' // Cor do texto do eixo horizontal em branco
+                        },
+                        titleTextStyle: {
+                            color: '#FFFFFF' // Cor do título do eixo horizontal em branco
+                        }
+                    },
+                    vAxis: {
+                        textStyle: {
+                            color: '#FFFFFF' // Cor do texto do eixo vertical em branco
+                        },
+                        titleTextStyle: {
+                            color: '#FFFFFF' // Cor do título do eixo vertical em branco
+                        }
+                    },
+                    legend: {
+                        textStyle: {
+                            color: '#FFFFFF' // Cor do texto da legenda em branco
+                        }
+                    }
+                };
+
+                // Desenhar o gráfico
+                var chart = new google.visualization.ColumnChart(document.getElementById('grafico-container'));
+                chart.draw(data, options);
+            }
+
+            // Função para carregar os dados do gráfico
+            function carregarGrafico(tipo) {
+                let url;
+                switch (tipo) {
+                    case 'diario':
+                        url = "{{ route('dashboard.grafico.diario') }}"; // Rota para gráfico diário
+                        break;
+                    case 'semanal':
+                        url = "{{ route('dashboard.grafico.semanal') }}"; // Rota para gráfico semanal
+                        break;
+                    case 'mensal':
+                        url = "{{ route('dashboard.grafico.mensal') }}"; // Rota para gráfico mensal
+                        break;
+                }
+
+                // Fazer requisição AJAX para obter os dados
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        drawChart(data.graficoDados);
+                    })
+                    .catch(error => console.error('Erro ao carregar os dados do gráfico:', error));
+            }
+
+            // Event listeners para os botões
+            document.getElementById('btn-diario').addEventListener('click', function() {
+                carregarGrafico('diario');
+            });
+
+            document.getElementById('btn-semanal').addEventListener('click', function() {
+                carregarGrafico('semanal');
+            });
+
+            document.getElementById('btn-mensal').addEventListener('click', function() {
+                carregarGrafico('mensal');
+            });
+        </script>
+
     </div>
 </div>
-
-<script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Dia', 'Lucro'],
-            ['Seg', 1000],
-            ['Ter', 1170],
-            ['Qua', 660],
-            ['Qui', 1030],
-            ['Sex', 1200],
-            ['Sáb', 1500],
-            ['Dom', 1400]
-        ]);
-
-        var options = {
-            title: 'Lucro Diário',
-            backgroundColor: '#0f172b',
-            titleTextStyle: {color: '#FA8032', fontSize: 18},
-            legend: {position: 'none'},
-            hAxis: {
-                textStyle: {color: '#fff'}
-            },
-            vAxis: {
-                textStyle: {color: '#fff'}
-            },
-            colors: ['#FA8032'],
-            chartArea: {width: '80%', height: '70%'}
-        };
-
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-    }
-
-</script>
 </body>
 </html>

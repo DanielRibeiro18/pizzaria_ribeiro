@@ -36,7 +36,9 @@ Route::get('/login', function () {
 
 Route::get('/admin', 'DashboardController@showDashboard')->name('dashboard');
 
-
+Route::get('/admin/venda/diario', 'DashboardController@gerarGraficoDiario')->name('dashboard.grafico.diario');
+Route::get('/admin/venda/semanal', 'DashboardController@gerarGraficoSemanal')->name('dashboard.grafico.semanal');
+Route::get('/admin/venda/mensal', 'DashboardController@gerarGraficoMensal')->name('dashboard.grafico.mensal');
 
 Route::get('/produto', 'ProdutoController@create')->name('produto');
 
