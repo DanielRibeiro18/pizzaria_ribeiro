@@ -34,11 +34,14 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
-Route::get('/admin', 'DashboardController@showDashboard')->name('dashboard');
+Route::get('/admin/dashboard', 'DashboardController@showDashboard')->name('dashboard');
 
 Route::get('/admin/venda/diario', 'DashboardController@gerarGraficoDiario')->name('dashboard.grafico.diario');
 Route::get('/admin/venda/semanal', 'DashboardController@gerarGraficoSemanal')->name('dashboard.grafico.semanal');
 Route::get('/admin/venda/mensal', 'DashboardController@gerarGraficoMensal')->name('dashboard.grafico.mensal');
+
+Route::get('/gerar-pdf/{tipo}', 'DashboardController@gerarPdf')->name('dashboard.gerarPdf');
+
 
 Route::get('/produto', 'ProdutoController@create')->name('produto');
 
@@ -50,7 +53,11 @@ Route::get('/logout', 'AuthController@logout')->name('logout');
 
 Route::post('/registro', 'UsuarioController@registro')->name('usuario.registro');
 
+Route::post('/registroadmin', 'UsuarioController@registroadmin')->name('usuario.registroadmin');
+
 Route::get('/admin/usuario', 'UsuarioController@list')->name('usuario.list');
+
+Route::get('/usuario/relatorio', 'UsuarioController@gerarPdf')->name('usuario.gerarPdf');
 
 Route::post('/admin/usuario/{usuario}', 'UsuarioController@remover')->name('usuario.remove');
 
@@ -83,8 +90,12 @@ Route::post('admin/adicional', 'AdicionaisController@store')->name('adicional.st
 
 Route::post('admin/adicional/{adicional}', 'AdicionaisController@delete')->name('adicional.delete');
 
+Route::get('/adicionais/relatorio', 'AdicionaisController@gerarPdf')->name('adicional.gerarPdf');
+
 Route::get('/admin/horario', 'HorarioController@list')->name('horario.list');
 
 Route::get('/admin/horario/{horario}/edit', 'HorarioController@edit')->name('horario.edit');
 
 Route::put('/admin/horario/{horario}', 'HorarioController@update')->name('horario.update');
+
+Route::get('/horario/relatorio', 'HorarioController@gerarPdf')->name('horario.gerarPdf');

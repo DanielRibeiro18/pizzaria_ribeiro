@@ -833,7 +833,7 @@
                                                     <div class="container">
                                                         <div class="row">
                                                             <h5 class="modal-title text-white" style="margin-bottom: 20px;">SABORES SALGADOS</h5>
-                                                            @foreach($salgmedia as $salg)
+                                                            @foreach($salggrande as $salg)
                                                                 @if($salg->ativo)
                                                                 <div class="col-md-4 col-sm-6 mb-3 d-flex align-items-stretch">
                                                                     <div class="card w-100">

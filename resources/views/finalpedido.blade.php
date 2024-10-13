@@ -13,6 +13,8 @@
     @foreach($pedido->produtos as $produto)
         <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
         <span>{{ $produto->nome }}</span>
+        <span>{{ $produto->categoria->nome }}</span>
+        <span>{{ $produto->categoria->id }}</span>
         <span>{{ number_format($produto->preco, 2, ',', '.') }}</span>
 
         @if($produto->pivot->eMeioaMeio)
