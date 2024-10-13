@@ -29,6 +29,8 @@
             {{ method_field('PUT') }}
             {{ csrf_field() }}
 
+
+
             <label for="nome">Nome Completo:</label>
             <input type="text" id="nome" name="nome" value="{{ $usuario->nome }}" required>
 
@@ -48,7 +50,7 @@
 
     </div>
 </div>
-</div>
+
 
 <style>
     .alert {

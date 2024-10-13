@@ -39,7 +39,6 @@
     <!-- Forma de Pagamento -->
     <div class="form-group">
 
-
         <h3>Total: <span id="totalPreco">{{ $totalPreco}}</span></h3>
         <h3>Total: <span id="totalCupom">{{ $totalCupom}}</span></h3>
         <h3>Cupom aplicado: <span id="nomeCupom">{{ $nomeCupom}}</span><span id="valorCupom"> - valor de {{ $valorCupom}}% </span> <span id="descCategoria"> aplicado às {{ $descCategoria}}</span></h3>
@@ -60,14 +59,14 @@
     </div>
 
     <div id="troco_valor_section" class="form-group" style="display: none;">
-        <label for="troco">Valor para troco</label>
+        <label for="troco">Valor para troco:</label>
         <input type="text" id="troco" name="troco" class="form-control" oninput="calculateTroco()">
         <small id="troco_result" class="form-text text-muted"></small>
     </div>
 
     <!-- Valor dos Produtos -->
     <div class="form-group">
-        <label for="valor_produtos">Valor dos Produtos</label>
+        <label for="valor_produtos">Valor dos Produtos:</label>
         <input type="text" id="valor_produtos" name="valor_produtos" class="form-control" value="{{ $totalCupom}}" readonly>
     </div>
 

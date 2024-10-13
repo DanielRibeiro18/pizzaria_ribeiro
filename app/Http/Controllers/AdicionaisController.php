@@ -45,12 +45,16 @@ class AdicionaisController extends Controller
         // Caminho da logo (ajuste conforme necessário)
         $logoPath = 'C:/Users/Dan/Documents/Projeto/pizzaria_ribeiro/public/site/img/logo.png';
 
+        // Data atual
+        $dataAtual = date('d/m/Y H:i');
+
         // Gera o conteúdo HTML do relatório
         $html = '
-    <div style="text-align: center;">
-        <img src="' . $logoPath . '" alt="Logo" style="width: 150px; height: auto; margin-bottom: 20px;">
-        <h1>Relatório de Adicionais</h1>
-    </div>
+<div style="text-align: center;">
+    <img src="' . $logoPath . '" alt="Logo" style="width: 150px; height: auto; margin-bottom: 20px;">
+    <h1>Relatório de Pedidos</h1>
+    <p>Data: ' . $dataAtual . '</p>
+</div>
     <table border="1" cellspacing="0" cellpadding="5" style="width: 100%; text-align: left; margin: 0 auto;">
         <thead>
             <tr>

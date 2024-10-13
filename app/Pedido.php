@@ -17,4 +17,13 @@ class Pedido extends Model
         return $this->hasOne(Cupom::class, 'id', 'cupomId');
     }
 
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'usuarioId');
+    }
+
+    public function bairro()
+    {
+        return $this->belongsTo(Bairro::class, 'bairroId');
+    }
 }

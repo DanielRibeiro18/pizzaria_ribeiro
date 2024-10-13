@@ -135,7 +135,6 @@ class UsuarioController extends Controller
         return redirect(route('usuario.list'));
     }
 
-
     public function remover(Request $request, Usuario $usuario)
     {
         $usuario->delete();

@@ -42,11 +42,6 @@ Route::get('/admin/venda/mensal', 'DashboardController@gerarGraficoMensal')->nam
 
 Route::get('/gerar-pdf/{tipo}', 'DashboardController@gerarPdf')->name('dashboard.gerarPdf');
 
-
-Route::get('/produto', 'ProdutoController@create')->name('produto');
-
-Route::post('/cadproduto', 'ProdutoController@cadastro')->name('produto.cadastro');
-
 Route::post('/login', 'AuthController@login')->name('usuario.login');
 
 Route::get('/logout', 'AuthController@logout')->name('logout');
@@ -57,7 +52,7 @@ Route::post('/registroadmin', 'UsuarioController@registroadmin')->name('usuario.
 
 Route::get('/admin/usuario', 'UsuarioController@list')->name('usuario.list');
 
-Route::get('/usuario/relatorio', 'UsuarioController@gerarPdf')->name('usuario.gerarPdf');
+Route::get('/admin/usuario/relatorio', 'UsuarioController@gerarPdf')->name('usuario.gerarPdf');
 
 Route::post('/admin/usuario/{usuario}', 'UsuarioController@remover')->name('usuario.remove');
 
@@ -90,7 +85,7 @@ Route::post('admin/adicional', 'AdicionaisController@store')->name('adicional.st
 
 Route::post('admin/adicional/{adicional}', 'AdicionaisController@delete')->name('adicional.delete');
 
-Route::get('/adicionais/relatorio', 'AdicionaisController@gerarPdf')->name('adicional.gerarPdf');
+Route::get('admin/adicionais/relatorio', 'AdicionaisController@gerarPdf')->name('adicional.gerarPdf');
 
 Route::get('/admin/horario', 'HorarioController@list')->name('horario.list');
 
@@ -98,4 +93,25 @@ Route::get('/admin/horario/{horario}/edit', 'HorarioController@edit')->name('hor
 
 Route::put('/admin/horario/{horario}', 'HorarioController@update')->name('horario.update');
 
-Route::get('/horario/relatorio', 'HorarioController@gerarPdf')->name('horario.gerarPdf');
+Route::get('admin/horario/relatorio', 'HorarioController@gerarPdf')->name('horario.gerarPdf');
+
+Route::get('/admin/produto', 'ProdutoController@create')->name('produto.list');
+
+Route::post('/admin/cadproduto', 'ProdutoController@cadastro')->name('produto.cadastro');
+
+Route::get('/admin/produto/{produto}/edit', 'ProdutoController@edit')->name('produto.edit');
+
+Route::put('/admin/produto/{produto}', 'ProdutoController@update')->name('produto.update');
+
+Route::post('/admin/produto/{produto}', 'ProdutoController@remove')->name('produto.remove');
+
+Route::get('admin/produto/relatorio', 'ProdutoController@gerarPdf')->name('produto.gerarPdf');
+
+Route::get('/admin/pedido', 'PedidoController@list')->name('pedido.list');
+
+Route::post('/pedido/cancelar/{id}', 'PedidoController@cancelarPedido')->name('pedido.cancelar');
+
+Route::post('/admin/pedido/{id}/voltar-situacao', 'PedidoController@voltarSituacao')->name('pedido.voltarSituacao');
+Route::post('/admin/pedido/{id}/avancar-situacao', 'PedidoController@avancarSituacao')->name('pedido.avancarSituacao');
+
+Route::get('admin/pedido/relatorio', 'PedidoController@gerarPdf')->name('pedido.gerarPdf');
