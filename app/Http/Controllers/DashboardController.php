@@ -20,11 +20,11 @@ class DashboardController extends Controller
 
         // Calcula o lucro diário
         $lucroDiario = Pedido::whereDate('created_at', $hoje)
-            ->where('situacao', 'pendente') // Usando 'pendente' para o lucro
+            ->where('situacao', 'finalizado') // Usando 'finalizado' para o lucro
             ->sum('subtotal');
 
-        // Busca pedidos do dia atual com status 'pendente' e os produtos relacionados
-        $pedidos = Pedido::with('produtos')->whereDate('created_at', $hoje)->where('situacao', 'pendente')->get();
+        // Busca pedidos do dia atual com status 'finalizado' e os produtos relacionados
+        $pedidos = Pedido::with('produtos')->whereDate('created_at', $hoje)->where('situacao', 'finalizado')->get();
 
         // Buscar todos os produtos e outros dados necessários
         $produtos = Produto::all();
@@ -38,10 +38,10 @@ class DashboardController extends Controller
     {
         $hoje = Carbon::today();
 
-        // Busca pedidos do dia atual com status 'pendente' e os produtos relacionados
+        // Busca pedidos do dia atual com status 'finalizado' e os produtos relacionados
         $pedidos = Pedido::with('produtos')
             ->whereDate('created_at', $hoje)
-            ->where('situacao', 'pendente')
+            ->where('situacao', 'finalizado')
             ->get();
 
         // Processar dados para o gráfico
@@ -93,10 +93,10 @@ class DashboardController extends Controller
     {
         $dataInicio = Carbon::today()->copy()->subDays(6); // Últimos 7 dias (incluindo hoje)
 
-        // Busca pedidos dos últimos 7 dias com status 'pendente'
+        // Busca pedidos dos últimos 7 dias com status 'finalizado'
         $pedidos = Pedido::with('produtos')
             ->whereBetween('created_at', [$dataInicio, Carbon::tomorrow()->copy()])
-            ->where('situacao', 'pendente')
+            ->where('situacao', 'finalizado')
             ->get();
 
         // Processar dados para o gráfico
@@ -146,10 +146,10 @@ class DashboardController extends Controller
     {
         $dataInicio = Carbon::today()->copy()->subDays(29); // Últimos 30 dias (incluindo hoje)
 
-        // Busca pedidos dos últimos 30 dias com status 'pendente'
+        // Busca pedidos dos últimos 30 dias com status 'finalizado'
         $pedidos = Pedido::with('produtos')
             ->whereBetween('created_at', [$dataInicio, Carbon::tomorrow()->copy()])
-            ->where('situacao', 'pendente')
+            ->where('situacao', 'finalizado')
             ->get();
 
         // Processar dados para o gráfico
@@ -217,7 +217,7 @@ class DashboardController extends Controller
         // Busca pedidos com base no tipo de relatório
         $pedidos = Pedido::with('produtos')
             ->whereBetween('created_at', [$dataInicio, $hoje->copy()->addDay()])
-            ->where('situacao', 'pendente')
+            ->where('situacao', 'finalizado')
             ->get();
 
         // Processar dados para o relatório PDF

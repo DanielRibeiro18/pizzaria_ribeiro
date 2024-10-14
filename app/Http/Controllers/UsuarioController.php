@@ -256,7 +256,7 @@ class UsuarioController extends Controller
             $html .= '<td style="text-align: center;">' . htmlspecialchars($usuario->nome) . '</td>'; // Centraliza o texto
             $html .= '<td style="text-align: center;">' . htmlspecialchars($usuario->email) . '</td>'; // Centraliza o texto
             $html .= '<td style="text-align: center;">' . $this->formataCpf($usuario->cpf) . '</td>'; // CPF formatado
-            $html .= '<td style="text-align: center;">' . ($usuario->admin ? 'É admin' : 'Não é admin') . '</td>'; // Verifica se é admin
+            $html .= '<td style="text-align: center;">' . ($usuario->admin ? 'Sim' : 'Não') . '</td>'; // Verifica se é admin
             $html .= '</tr>';
         }
 

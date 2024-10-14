@@ -115,3 +115,27 @@ Route::post('/admin/pedido/{id}/voltar-situacao', 'PedidoController@voltarSituac
 Route::post('/admin/pedido/{id}/avancar-situacao', 'PedidoController@avancarSituacao')->name('pedido.avancarSituacao');
 
 Route::get('admin/pedido/relatorio', 'PedidoController@gerarPdf')->name('pedido.gerarPdf');
+
+Route::get('/admin/categoria', 'CategoriaController@list')->name('categoria.list');
+
+Route::post('/admin/categoria', 'CategoriaController@registro')->name('categoria.registro');
+
+Route::post('/admin/categoria/{categoria}', 'CategoriaController@remover')->name('categoria.remove');
+
+Route::get('/admin/categoria/{categoria}/edit', 'CategoriaController@edit')->name('categoria.edit');
+
+Route::put('/admin/categoria/{categoria}', 'CategoriaController@update')->name('categoria.update');
+
+Route::get('admin/categoria/relatorio', 'CategoriaController@gerarPdf')->name('categoria.gerarPdf');
+
+Route::get('/admin/cupom', 'CupomController@list')->name('cupom.list');
+
+Route::post('/admin/cupom', 'CupomController@registro')->name('cupom.registro');
+
+Route::post('/admin/cupom/{cupom}', 'CupomController@remover')->name('cupom.remove');
+
+Route::get('/admin/cupom/{cupom}/edit', 'CupomController@edit')->name('cupom.edit');
+
+Route::put('/admin/cupom/{cupom}', 'CupomController@update')->name('cupom.update');
+
+Route::get('admin/cupom/relatorio', 'CupomController@gerarPdf')->name('cupom.gerarPdf');

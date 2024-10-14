@@ -10,6 +10,6 @@
     <a href="{{ route('usuario.list') }}">Usuários</a>
     <a href="{{ route('pedido.list') }}">Pedidos</a>
     <a href="{{ route('horario.list') }}">Horários</a>
-    <a href="#">Categorias</a>
-    <a href="#">Cupons</a>
+    <a href="{{ route('categoria.list') }}">Categorias</a>
+    <a href="{{ route('cupom.list') }}">Cupons</a>
 </div>
