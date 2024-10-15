@@ -12,4 +12,5 @@
     <a href="{{ route('horario.list') }}">Horários</a>
     <a href="{{ route('categoria.list') }}">Categorias</a>
     <a href="{{ route('cupom.list') }}">Cupons</a>
+    <a href="{{ route('bairro.list') }}">Bairros</a>
 </div>

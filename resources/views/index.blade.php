@@ -67,8 +67,6 @@
     </div>
     <!-- Navbar & Hero End -->
 
-
-
     <!-- Service Start -->
     <div class="container-xxl py-5">
         <div class="container">
@@ -118,8 +116,8 @@
     <div class="container-xxl pt-5 pb-3">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Team Members</h5>
-                <h1 class="mb-5">Our Master Chefs</h1>
+                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Membros da equipe</h5>
+                <h1 class="mb-5">Nossos Master Chefs!</h1>
             </div>
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -127,8 +125,7 @@
                         <div class="rounded-circle overflow-hidden m-4">
                             <img class="img-fluid" src="site/img/team-1.jpg" alt="">
                         </div>
-                        <h5 class="mb-0">Full Name</h5>
-                        <small>Designation</small>
+                        <h5 class="mb-0">Rafael Silva</h5>
                         <div class="d-flex justify-content-center mt-3">
                             <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
@@ -141,8 +138,7 @@
                         <div class="rounded-circle overflow-hidden m-4">
                             <img class="img-fluid" src="site/img/team-2.jpg" alt="">
                         </div>
-                        <h5 class="mb-0">Full Name</h5>
-                        <small>Designation</small>
+                        <h5 class="mb-0">Pedro Santos</h5>
                         <div class="d-flex justify-content-center mt-3">
                             <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
@@ -155,8 +151,7 @@
                         <div class="rounded-circle overflow-hidden m-4">
                             <img class="img-fluid" src="site/img/team-3.jpg" alt="">
                         </div>
-                        <h5 class="mb-0">Full Name</h5>
-                        <small>Designation</small>
+                        <h5 class="mb-0">Henrique Oliveira</h5>
                         <div class="d-flex justify-content-center mt-3">
                             <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
@@ -169,8 +164,7 @@
                         <div class="rounded-circle overflow-hidden m-4">
                             <img class="img-fluid" src="site/img/team-4.jpg" alt="">
                         </div>
-                        <h5 class="mb-0">Full Name</h5>
-                        <small>Designation</small>
+                        <h5 class="mb-0">Thiago Pereira</h5>
                         <div class="d-flex justify-content-center mt-3">
                             <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
@@ -183,55 +177,46 @@
     </div>
     <!-- Team End -->
 
-    <!-- Testimonial Start -->
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
             <div class="text-center">
-                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Testimonial</h5>
-                <h1 class="mb-5">Our Clients Say!!!</h1>
+                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Avaliações</h5>
+                <h1 class="mb-5">Nossos clientes dizem!</h1>
             </div>
             <div class="owl-carousel testimonial-carousel">
                 <div class="testimonial-item bg-transparent border rounded p-4">
                     <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                    <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+                    <p>A Pizzaria Ribeiro é incrível! Sempre encontro a combinação perfeita de sabores, e a pizza chega quentinha e no ponto certo. Atendimento de primeira!</p>
                     <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded-circle" src="site/img/testimonial-1.jpg" style="width: 50px; height: 50px;">
                         <div class="ps-3">
-                            <h5 class="mb-1">Client Name</h5>
-                            <small>Profession</small>
+                            <h5 class="mb-1">Amanda Costa</h5>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-item bg-transparent border rounded p-4">
                     <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                    <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+                    <p>Não conheço outra pizzaria que consiga entregar uma pizza com tanto sabor e qualidade. A Pizzaria Ribeiro sempre surpreende com recheios generosos e uma massa perfeita. Super recomendo!</p>
                     <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded-circle" src="site/img/testimonial-2.jpg" style="width: 50px; height: 50px;">
                         <div class="ps-3">
-                            <h5 class="mb-1">Client Name</h5>
-                            <small>Profession</small>
+                            <h5 class="mb-1">Lucas Ferreira</h5>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-item bg-transparent border rounded p-4">
                     <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                    <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+                    <p>A Pizzaria Ribeiro é minha escolha sempre que estou com vontade de uma pizza de qualidade. As combinações de sabores são impecáveis e a crocância da massa é incomparável. Simplesmente maravilhosa!</p>
                     <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded-circle" src="site/img/testimonial-3.jpg" style="width: 50px; height: 50px;">
                         <div class="ps-3">
-                            <h5 class="mb-1">Client Name</h5>
-                            <small>Profession</small>
+                            <h5 class="mb-1">João Mendes</h5>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-item bg-transparent border rounded p-4">
                     <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                    <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+                    <p>Sempre que peço pizza na Pizzaria Ribeiro, me surpreendo com a qualidade. Os ingredientes são sempre frescos e bem escolhidos, e a massa é leve e deliciosa. Uma verdadeira obra-prima!</p>
                     <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded-circle" src="site/img/testimonial-4.jpg" style="width: 50px; height: 50px;">
                         <div class="ps-3">
-                            <h5 class="mb-1">Client Name</h5>
-                            <small>Profession</small>
+                            <h5 class="mb-1">Gabriela Almeida</h5>
                         </div>
                     </div>
                 </div>
@@ -241,7 +226,6 @@
     <!-- Testimonial End -->
 
     @include('components.footer');
-
 </body>
 
 </html>

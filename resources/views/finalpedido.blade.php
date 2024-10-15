@@ -1,25 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+
+@include('components.head', ['title'=>'Pedido finalizado'])
+
 <body>
-    <h1>Pedido finalizado com sucesso!</h1>
+@include('components.navbar', ['theme'=>'Pedido finalizado!']);
+<!-- Menu Start -->
+<div class="container-xxl py-5">
+    <span>Pedido #{{ $pedido->id }}<br></span>
 
     @foreach($pedido->produtos as $produto)
-        <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
+
+
         <span>{{ $produto->nome }}</span>
         <span>{{ $produto->categoria->nome }}</span>
-        <span>{{ $produto->categoria->id }}</span>
+        <span>{{ $produto->tamanho }}</span>
         <span>{{ number_format($produto->preco, 2, ',', '.') }}</span>
 
         @if($produto->pivot->eMeioaMeio)
-            <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->pivot->metade->img) }}" alt="" style="width: 80px;">
             <span>{{ $produto->pivot->metade->nome }}</span>
+            <span>{{ $produto->pivot->metade->tamanho }}</span>
             <span>{{ number_format($produto->pivot->metade->preco, 2, ',', '.') }}</span>
         @endif
 
@@ -38,14 +38,22 @@
     @endforeach
 
 
-    <span>Subtotal: {{ $pedido->subtotal }}</span> <br>
-    <span>Taxa de entrega: {{ $pedido->taxa_entrega }}</span> <br>
-    <span>Valor dos produtos: {{ $pedido->valor_produtos }}</span> <br>
+    <span>Subtotal: {{ number_format($pedido->subtotal, 2, ',', '.') }}</span> <br>
+    <span>Taxa de entrega: {{ number_format($pedido->taxa_entrega, 2, ',', '.') }}</span> <br>
+    <span>Valor dos produtos: {{ number_format($pedido->subtotal - $pedido->taxa_entrega, 2, ',', '.') }}</span> <br>
     <span>{{ $pedido->endereco }}</span> <br>
     @if($pedido->cupomId != null)
-        <span>{{ $pedido->cupom->nome }}</span> <br>
+        <span>{{ $pedido->cupom->nome }} - {{ $pedido->cupom->valor }}%</span> <br>
     @endif
 
     <a href="{{ route('index') }}">Retornar a home</a>
+</div>
+<!-- Menu End -->
+
+
+
+
+
+@include('components.footer');
 </body>
 </html>

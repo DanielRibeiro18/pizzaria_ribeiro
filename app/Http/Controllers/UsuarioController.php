@@ -44,23 +44,35 @@ class UsuarioController extends Controller
         // Remove caracteres não numéricos do CPF
         $cpfNumeros = preg_replace('/\D/', '', $request->cpf);
 
+
+        $telefonelimpo = preg_replace('/\D/', '', $request->telefone);
+
         // Valida se o CPF é válido
         if (!validaCpf($cpfNumeros)) {
-            return redirect(route('usuario.list'))->with('Erro', 'CPF inválido!');
+            return redirect(route('registro'))->with('Erro', 'CPF inválido!');
         }
 
-        if (!$this->isValidCpf($cpfNumeros)) {
-            return redirect(route('usuario.list'))->with('Erro', 'CPF inválido!');
-        }
-
+        // Verifica se o e-mail já existe
         $emailexiste = Usuario::where('email', $request->email)->count();
-        if ($emailexiste >= 1){
+        if ($emailexiste >= 1) {
             return redirect(route('registro'))->with('Erro', 'Email já existente!');
+        }
+
+        // Verifica se o e-mail já existe
+        $telefoneexiste = Usuario::where('telefone', $request->telefone)->count();
+        if ($telefoneexiste >= 1) {
+            return redirect(route('registro'))->with('Erro', 'Telefone já existente!');
+        }
+
+        // Verifica se o CPF já existe na tabela de usuários
+        $cpfExistente = Usuario::where('cpf', $cpfNumeros)->count();
+        if ($cpfExistente >= 1) {
+            return redirect(route('registro'))->with('Erro', 'CPF já cadastrado!');
         }
 
         $usuario = new Usuario();
         $usuario->nome = $request->nome;
-        $usuario->telefone = $request->telefone;
+        $usuario->telefone = $telefonelimpo;
         $usuario->cpf = $cpfNumeros;
         $usuario->email = $request->email;
         $usuario->senha = Hash::make($request->senha);
@@ -116,16 +128,24 @@ class UsuarioController extends Controller
             return redirect(route('usuario.list'))->with('Erro', 'Email já existente!');
         }
 
+        // Verifica se o e-mail já existe
+        $telefoneexiste = Usuario::where('telefone', $request->telefone)->count();
+        if ($telefoneexiste >= 1) {
+            return redirect(route('usuario.list'))->with('Erro', 'Telefone já existente!');
+        }
+
         // Verifica se o CPF já existe na tabela de usuários
         $cpfExistente = Usuario::where('cpf', $cpfNumeros)->count();
         if ($cpfExistente >= 1) {
             return redirect(route('usuario.list'))->with('Erro', 'CPF já cadastrado!');
         }
 
+        $telefoneLimpo = preg_replace('/\D/', '', $request->telefone);
+
         // Cria um novo usuário
         $usuario = new Usuario();
         $usuario->nome = $request->nome;
-        $usuario->telefone = $request->telefone;
+        $usuario->telefone = $telefoneLimpo;
         $usuario->cpf = $cpfNumeros; // Armazena o CPF sem caracteres especiais
         $usuario->email = $request->email;
         $usuario->senha = Hash::make($request->senha);
@@ -182,6 +202,9 @@ class UsuarioController extends Controller
         // Remove caracteres não numéricos do CPF
         $cpfNumeros = preg_replace('/\D/', '', $request->cpf);
 
+        // Remove caracteres não numéricos do CPF
+        $telefonelimpo = preg_replace('/\D/', '', $request->telefone);
+
         // Valida se o CPF é válido
         if (!validaCpf($cpfNumeros)) {
             return redirect(route('usuario.list'))->with('Erro', 'CPF inválido!');
@@ -203,9 +226,16 @@ class UsuarioController extends Controller
             return redirect(route('usuario.list'))->with('Erro', 'CPF já cadastrado!');
         }
 
+        $telefoneExistente = Usuario::where('telefone', $telefonelimpo)
+            ->where('id', '!=', $usuario->id) // Ignora o usuário atual
+            ->count();
+        if ($telefoneExistente >= 1) {
+            return redirect(route('usuario.list'))->with('Erro', 'Telefone já cadastrado!');
+        }
+
         // Atualiza os dados do usuário
         $usuario->nome = $request->nome;
-        $usuario->telefone = $request->telefone;
+        $usuario->telefone = $telefonelimpo;
         $usuario->cpf = $cpfNumeros;
         $usuario->email = $request->email;
 

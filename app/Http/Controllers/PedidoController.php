@@ -287,6 +287,7 @@ class PedidoController extends Controller
         // Carrega os produtos relacionados ao pedido
         $pedido->load('produtos');
 
+
         // Retorna a view com o pedido
         return view('finalpedido', ['pedido' => $pedido]);
     }

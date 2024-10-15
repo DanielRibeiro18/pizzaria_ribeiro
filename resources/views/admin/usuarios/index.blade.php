@@ -31,7 +31,7 @@
             <input type="text" id="nome" name="nome" value="{{ old('nome') }}" required>
 
             <label for="telefone">Telefone:</label>
-            <input type="tel" id="telefone" name="telefone" required>
+            <input type="tel" id="telefone" name="telefone" oninput="mascaraTelefone(this)" required>
 
             <label for="cpf">CPF:</label>
             <input type="text" id="cpf" name="cpf" oninput="mascaraCpf(this)" required>
@@ -233,6 +233,22 @@
         cpfField.value = valor; // Atualiza o valor do campo
     }
 
+    function mascaraTelefone(telefone) {
+        // Remove tudo que não for número
+        telefone.value = telefone.value.replace(/\D/g, '');
+
+        // Limitar a 11 caracteres numéricos (2 do DDD + 9 do telefone)
+        telefone.value = telefone.value.substring(0, 11);
+
+        // Se o telefone tiver 11 dígitos (formato com 9 no telefone)
+        if (telefone.value.length === 11) {
+            telefone.value = telefone.value.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+        }
+        // Se o telefone tiver 10 dígitos (formato com 8 no telefone)
+        else if (telefone.value.length === 10) {
+            telefone.value = telefone.value.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
+        }
+    }
 
 </script>
 </body>

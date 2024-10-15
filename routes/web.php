@@ -34,6 +34,8 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
+
+
 Route::get('/admin/dashboard', 'DashboardController@showDashboard')->name('dashboard');
 
 Route::get('/admin/venda/diario', 'DashboardController@gerarGraficoDiario')->name('dashboard.grafico.diario');
@@ -139,3 +141,11 @@ Route::get('/admin/cupom/{cupom}/edit', 'CupomController@edit')->name('cupom.edi
 Route::put('/admin/cupom/{cupom}', 'CupomController@update')->name('cupom.update');
 
 Route::get('admin/cupom/relatorio', 'CupomController@gerarPdf')->name('cupom.gerarPdf');
+
+Route::get('/admin/bairro', 'BairroController@list')->name('bairro.list');
+
+Route::post('/admin/bairro', 'BairroController@registro')->name('bairro.registro');
+
+Route::post('/admin/bairro/{bairro}', 'BairroController@remover')->name('bairro.remove');
+
+Route::get('admin/bairro/relatorio', 'BairroController@gerarPdf')->name('bairro.gerarPdf');

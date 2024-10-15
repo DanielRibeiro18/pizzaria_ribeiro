@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-@include('admin.components.headadmin', ['title'=>'Dashboard'])
+@include('admin.components.headadmin', ['title'=>'Pedidos'])
 
 <div>
 <div class="container">
@@ -34,6 +34,7 @@
                         <!-- Mostrando o usuário que fez o pedido -->
                         <span>Usuário: {{ $p->usuario->nome }}</span> <br>
 
+                        <div class="produto-div">
                         @foreach($p->produtos as $produto)
                             <span>
                         <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;"><br>
@@ -66,8 +67,11 @@
                             <span >{{ $produto->pivot->observacao }}</span>
                             <br>
                         @endforeach
+                        </div>
+
 
                         <span>Status: {{ $p->situacao }}</span> <br>
+                        <span>Total dos produtos: R$ {{ number_format($p->subtotal - $p->taxa_entrega, 2, ',', '.') }}</span> <br>
                         <span>Taxa de entrega: R$ {{ number_format($p->taxa_entrega, 2, ',', '.') }}</span> <br>
                         <span>Total: R$ {{ number_format($p->subtotal, 2, ',', '.') }}</span> <br>
                         <span>{{ $p->bairro->cidade }} - {{ $p->endereco }}</span> <br>
@@ -274,6 +278,11 @@
 
         .btn-relatorio:hover {
             background-color: #e88c2f; /* Cor do botão ao passar o mouse */
+        }
+
+        .produto-div{
+            border-radius: 8px;
+            border: white 1px solid;
         }
     </style>
 </body>

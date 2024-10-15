@@ -15,7 +15,7 @@
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required>
 
-            <button type="submit">Entrar</button>
+            <button type="submit" class="btn btn-primary">Entrar</button>
         </form>
     </div>
 
@@ -55,18 +55,18 @@
         .login-container button {
             width: 100%;
             padding: 10px;
-            background-color: #5cb85c;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
         }
-
-        .login-container button:hover {
-            background-color: #4cae4c;
-        }
     </style>
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     @include('components.footer');
 </body>
