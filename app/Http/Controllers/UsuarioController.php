@@ -58,6 +58,10 @@ class UsuarioController extends Controller
             return redirect(route('registro'))->with('Erro', 'Email já existente!');
         }
 
+        if ($request->senha != $request->confirma_senha) {
+            return redirect(route('registro'))->with('Erro', 'As senhas não são iguais!');
+        }
+
         // Verifica se o e-mail já existe
         $telefoneexiste = Usuario::where('telefone', $request->telefone)->count();
         if ($telefoneexiste >= 1) {
@@ -126,6 +130,10 @@ class UsuarioController extends Controller
         $emailexiste = Usuario::where('email', $request->email)->count();
         if ($emailexiste >= 1) {
             return redirect(route('usuario.list'))->with('Erro', 'Email já existente!');
+        }
+
+        if ($request->senha != $request->confirma_senha) {
+            return redirect(route('usuario.list'))->with('Erro', 'As senhas não são iguais!');
         }
 
         // Verifica se o e-mail já existe

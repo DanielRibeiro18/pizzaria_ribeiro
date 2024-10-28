@@ -42,6 +42,9 @@
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required>
 
+            <label for="confirma_senha">Confirme a senha:</label>
+            <input type="password" id="confirma_senha" name="confirma_senha" required>
+
             <button type="submit" class="btn-registrar">Registrar</button>
         </form>
 
