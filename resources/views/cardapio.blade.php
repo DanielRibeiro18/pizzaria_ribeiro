@@ -4,7 +4,7 @@
 @include('components.head', ['title'=>'Cardápio'])
 
 <body>
-@include('components.navbar', ['theme'=>'Faça seu pedido!']);
+@include('components.navbar', ['theme'=>'Faça seu pedido!'])
 
 <!-- Menu Start -->
 <div class="container-xxl py-5">
@@ -1044,7 +1044,7 @@
 
 
 
-@include('components.footer');
+@include('components.footer')
 
 </body>
 

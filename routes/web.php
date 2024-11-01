@@ -149,3 +149,5 @@ Route::post('/admin/bairro', 'BairroController@registro')->name('bairro.registro
 Route::post('/admin/bairro/{bairro}', 'BairroController@remover')->name('bairro.remove');
 
 Route::get('admin/bairro/relatorio', 'BairroController@gerarPdf')->name('bairro.gerarPdf');
+
+Route::get('/admin/produto/logica', 'LogicaController@update')->name('logica.update');

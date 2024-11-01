@@ -61,6 +61,17 @@
         <button type="submit" class="btn-registrar">Criar Produto</button>
     </form>
 
+        <form action="{{ route('logica.update') }}" class="form-registro" style="margin-top: 10px;">
+            {{ csrf_field() }}
+            <select name="logica">
+                @foreach(config('logicas.logicas') as $logica)
+                    <option value="{{ $logica }}">{{ $logica }}</option>
+                @endforeach
+            </select>
+
+            <button type="submit" class="btn-registrar">Alterar lógica de Meio a Meio</button>
+        </form>
+
         <div class="text-center mt-4">
             <form action="{{ route('produto.gerarPdf') }}" method="GET">
                 <button type="submit" class="btn btn-relatorio">Relatório de Produtos</button>

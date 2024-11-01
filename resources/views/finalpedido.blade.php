@@ -4,7 +4,9 @@
 @include('components.head', ['title'=>'Pedido finalizado'])
 
 <body>
-@include('components.navbar', ['theme'=>'Pedido finalizado!']);
+
+@include('components.navbar', ['theme'=>'Pedido finalizado!'])
+
 <!-- Menu Start -->
 <div class="container-xxl py-5">
     <span>Pedido #{{ $pedido->id }}<br></span>
@@ -50,10 +52,7 @@
 </div>
 <!-- Menu End -->
 
+@include('components.footer')
 
-
-
-
-@include('components.footer');
 </body>
 </html>

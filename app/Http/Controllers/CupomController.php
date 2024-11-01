@@ -20,15 +20,20 @@ class CupomController extends Controller
 
         $cupom = Cupom::where('nome', $request->cupom)->first();
 
+
         if ($cupom == null){
-            return redirect(route('checkout'))->with(['Fail', 'Cupom não encontrado!']);
+            return redirect(route('checkout'))->with('Cupom_invalido', 'Cupom não encontrado!');
+        }
+
+        if ($cupom->quant_usos <= 0) {
+            return redirect(route('checkout'))->with('Cupom_invalido', 'Cupom não existe ou está expirado');
         }
 
         $pedido->cupomId = $cupom->id;
 
         $pedido->save();
 
-        return redirect(route('checkout'))->with(['Success', 'Cupom aplicado com sucesso!']);
+        return redirect(route('checkout'))->with('Sucesso_cupom', 'Cupom aplicado com sucesso!');
 
     }
 

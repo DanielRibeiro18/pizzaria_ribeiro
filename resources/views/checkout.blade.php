@@ -4,7 +4,7 @@
 @include('components.head', ['title'=>'Checkout'])
 
 <body>
-@include('components.navbar', ['theme'=>'Finalize seu pedido!']);
+@include('components.navbar', ['theme'=>'Finalize seu pedido!'])
 
 @foreach($produtos as $produto)
     <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
@@ -41,7 +41,7 @@
 
         <h3>Total: <span id="totalPreco">{{ $totalPreco}}</span></h3>
         <h3>Total: <span id="totalCupom">{{ $totalCupom}}</span></h3>
-        <h3>Cupom aplicado: <span id="nomeCupom">{{ $nomeCupom}}</span><span id="valorCupom"> - valor de {{ $valorCupom}}% </span> <span id="descCategoria"> aplicado às {{ $descCategoria}}</span></h3>
+        <h3>Cupom aplicado: <span id="nomeCupom">{{ $nomeCupom}}</span><span id="valorCupom"> - {{ $valorCupom}}% de desconto </span> <span id="descCategoria"> em: {{ $descCategoria}}</span></h3>
         <label for="forma_pagamento">Forma de Pagamento</label>
         <select id="forma_pagamento" name="forma_pagamento" class="form-control" onchange="checkFormaPagamento()">
             <option value="cartao">Cartão</option>
@@ -121,6 +121,18 @@
     <button type="submit" class="btn btn-primary">Finalizar Pedido</button>
 </form>
 
+@if(session('Cupom_invalido'))
+    <div class="alert-erro-cupom alert-danger" style="text-align: center;">
+        {{ session('Cupom_invalido') }}
+    </div>
+@endif
+
+@if(session('Sucesso_cupom'))
+    <div class="alert-sucesso-cupom" style="text-align: center;">
+        {{ session('Sucesso_cupom') }}
+    </div>
+@endif
+
 <form action="{{ route('cupom.aplica') }}" method="POST">
     {{ csrf_field() }}
     <label for="cupom">Cupom:</label>
@@ -129,6 +141,28 @@
 </form>
 
 <a href="{{ route('cardapio') }}">Voltar ao cardápio</a>
+
+<style>
+    .alert-erro-cupom {
+        background-color: #f8d7da; /* Fundo vermelho claro */
+        color: #721c24; /* Texto vermelho escuro */
+        border: 1px solid #f5c6cb; /* Borda vermelha */
+        padding: 10px; /* Espaçamento interno */
+        border-radius: 5px; /* Bordas arredondadas */
+        margin-bottom: 20px; /* Espaçamento abaixo do alerta */
+        text-align: center; /* Centraliza o texto */
+    }
+
+    .alert-sucesso-cupom {
+        background-color: green; /* Fundo vermelho claro */
+        color: white; /* Texto vermelho escuro */
+        border: 1px solid #f5c6cb; /* Borda vermelha */
+        padding: 10px; /* Espaçamento interno */
+        border-radius: 5px; /* Bordas arredondadas */
+        margin-bottom: 20px; /* Espaçamento abaixo do alerta */
+        text-align: center; /* Centraliza o texto */
+    }
+</style>
 
 <script>
 
@@ -221,6 +255,6 @@
     });
 </script>
 
-@include('components.footer');
+@include('components.footer')
 </body>
 </html>

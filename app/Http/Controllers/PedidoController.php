@@ -12,6 +12,7 @@ use App\Cupom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
@@ -84,6 +85,8 @@ class PedidoController extends Controller
 
         $produtos = $pedido->produtos;
 
+        $logica = DB::table('logicas')->first()->nome ?? 'Média';
+
         $totalAdicionais = 0;
 
         foreach($produtos as $produto){
@@ -108,10 +111,20 @@ class PedidoController extends Controller
 
                     if($produto->pivot->eMeioaMeio){
                         $metade = $produto->pivot->metade;
+                        if($logica == 'Maior'){
+                            if(($produto->preco <=> $produto->pivot->metade->preco) == -1){
+                                $totalProdutos += $produto->pivot->metade->preco - ($produto->pivot->metade->preco * ($pedido->cupom->valor / 100));
+                            } else if(($produto->preco <=> $produto->pivot->metade->preco) == 1){
+                                $totalProdutos += $produto->preco - ($produto->preco * ($pedido->cupom->valor / 100));
+                            } else{
+                                $totalProdutos += $produto->preco - ($produto->preco * ($pedido->cupom->valor / 100));
+                            }
+                        } else{
+                            $media = ($produto->preco + $metade->preco ) / 2;
 
-                        $media = ($produto->preco + $metade->preco ) / 2;
+                            $totalProdutos += $media - ($media * ($pedido->cupom->valor / 100));
+                        }
 
-                        $totalProdutos += $media - ($media * ($pedido->cupom->valor / 100));
                     } else {
                         $totalProdutos += $produto->preco - ($produto->preco * ($pedido->cupom->valor / 100));
                     }
@@ -138,9 +151,19 @@ class PedidoController extends Controller
                 if($produto->pivot->eMeioaMeio){
                     $metade = $produto->pivot->metade;
 
-                    $media = ($produto->preco + $metade->preco ) / 2;
+                    if($logica == 'Maior'){
+                        if(($produto->preco <=> $produto->pivot->metade->preco) == -1){
+                            $totalProdutos += $produto->pivot->metade->preco;
+                        } else if(($produto->preco <=> $produto->pivot->metade->preco) == 1){
+                            $totalProdutos += $produto->preco;
+                        } else{
+                            $totalProdutos += $produto->preco;
+                        }
+                    } else{
+                        $media = ($produto->preco + $metade->preco ) / 2;
 
-                    $totalProdutos += $media;
+                        $totalProdutos += $media;
+                    }
                 } else {
                     $totalProdutos += $produto->preco;
                 }
@@ -149,6 +172,9 @@ class PedidoController extends Controller
         }
 
         $totalPreco = $totalProdutos + $totalAdicionais;
+
+
+
 
 
         if($pedido->cupom != null){
@@ -235,8 +261,18 @@ class PedidoController extends Controller
         // Atribuir o bairroId ao pedido
         $pedido->bairroId = $bairro->id;
 
+
+
         // Salvar o pedido no banco de dados
         $pedido->save();
+
+
+        if($pedido->cupomId != null){
+            $pedido->cupom->quant_usos -= 1;
+
+            $pedido->cupom->save();
+        }
+
 
         // Limpar o carrinho
         session()->put('itens_carrinho', 0);
