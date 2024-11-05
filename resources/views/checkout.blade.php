@@ -7,11 +7,9 @@
 @include('components.navbar', ['theme'=>'Finalize seu pedido!'])
 
 @foreach($produtos as $produto)
-    <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
     <span>{{ $produto->nome }}</span>
     <span>{{ $produto->preco }}</span>
     @if($produto->pivot->eMeioaMeio)
-        <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->pivot->metade->img) }}" alt="" style="width: 80px;">
         <span>{{ $produto->pivot->metade->nome }}</span>
         <span>{{ $produto->pivot->metade->preco }}</span>
     @endif
@@ -23,6 +21,7 @@
         <span>{{ $produto->pivot->adicional2->nome }}</span>
         <span>{{ $produto->pivot->adicional2->valor }}</span>
     @endif
+    <span>{{ $produto->tamanho }}</span>
     <span>{{ $produto->pivot->observacao }}</span>
     <br>
     <form action="{{ route('pedido.remove', $produto->pivot->id) }}" method="POST">
@@ -31,15 +30,13 @@
     </form>
 @endforeach
 
-
-
 <form action="{{ route('pedido.finaliza') }}" method="POST">
     {{ csrf_field() }}
 
     <!-- Forma de Pagamento -->
     <div class="form-group">
 
-        <h3>Total: <span id="totalPreco">{{ $totalPreco}}</span></h3>
+        <h3 hidden>Total: <span id="totalPreco" hidden>{{ $totalPreco}}</span></h3>
         <h3>Total: <span id="totalCupom">{{ $totalCupom}}</span></h3>
         <h3>Cupom aplicado: <span id="nomeCupom">{{ $nomeCupom}}</span><span id="valorCupom"> - {{ $valorCupom}}% de desconto </span> <span id="descCategoria"> em: {{ $descCategoria}}</span></h3>
         <label for="forma_pagamento">Forma de Pagamento</label>
@@ -70,40 +67,45 @@
         <input type="text" id="valor_produtos" name="valor_produtos" class="form-control" value="{{ $totalCupom}}" readonly>
     </div>
 
-    <!-- Taxa de Entrega -->
-    <div class="form-group">
-        <label for="taxa_entrega">Taxa de Entrega</label>
-        <input type="text" id="taxa_entrega" name="taxa_entrega" class="form-control" value="" readonly>
-    </div>
-
     <!-- Subtotal -->
     <div class="form-group">
         <label for="subtotal">Subtotal</label>
         <input type="text" id="subtotal" name="subtotal" class="form-control" value="" readonly>
     </div>
 
+    <div class="form-group">
+        <label for="retirada">Retirar no local?</label>
+        <input type="checkbox" id="retirada" name="retirada" value="on"  onclick="toggleFields()">
+    </div>
+
+    <!-- Taxa de Entrega -->
+    <div class="form-group">
+        <label for="taxa_entrega">Taxa de Entrega</label>
+        <input type="text" id="taxa_entrega" name="taxa_entrega" class="form-control" value="" readonly>
+    </div>
+
     <!-- CEP -->
     <div class="form-group">
         <label for="cep">CEP</label>
-        <input type="text" id="cep" name="cep" class="form-control" required>
+        <input type="text" id="cep" name="cep" class="form-control" oninput="mascaraCEP(this)">
     </div>
 
     <!-- Logradouro -->
     <div class="form-group">
         <label for="logradouro">Logradouro</label>
-        <input type="text" id="logradouro" name="logradouro" class="form-control" required>
+        <input type="text" id="logradouro" name="logradouro" class="form-control">
     </div>
 
     <!-- Bairro -->
     <div class="form-group">
         <label for="bairro">Bairro</label>
-        <input type="text" id="bairro" name="bairro" class="form-control" required>
+        <input type="text" id="bairro" name="bairro" class="form-control">
     </div>
 
     <!-- Número -->
     <div class="form-group">
         <label for="numero">Número</label>
-        <input type="text" id="numero" name="numero" class="form-control" required>
+        <input type="text" id="numero" name="numero" class="form-control">
     </div>
 
     <!-- Complemento -->
@@ -165,6 +167,50 @@
 </style>
 
 <script>
+
+    function mascaraCEP(input) {
+        // Remove todos os caracteres que não são dígitos
+        let cep = input.value.replace(/\D/g, '');
+
+        // Aplica a máscara de CEP (00000-000)
+        if (cep.length > 5) {
+            cep = cep.slice(0, 5) + '-' + cep.slice(5, 8);
+        }
+
+        // Atualiza o campo com o valor formatado
+        input.value = cep;
+    }
+
+    function toggleFields() {
+        const isRetiradaChecked = document.getElementById('retirada').checked;
+        const valorProdutos = document.getElementById('valor_produtos').value;
+        const subtotalField = document.getElementById('subtotal');
+        const fields = [
+            document.getElementById('taxa_entrega'),
+            document.getElementById('cep'),
+            document.getElementById('logradouro'),
+            document.getElementById('bairro'),
+            document.getElementById('numero'),
+            document.getElementById('complemento'),
+            document.getElementById('referencia')
+        ];
+
+        // Atualiza o subtotal com o valor de "valor_produtos" quando retirada está marcada
+        if (isRetiradaChecked) {
+            subtotalField.value = valorProdutos;
+        } else {
+            subtotalField.value = ""; // Limpa o subtotal se "Retirada" estiver desmarcada
+        }
+
+        // Desabilita e limpa os campos específicos
+        fields.forEach(field => {
+            field.disabled = isRetiradaChecked;
+            if (isRetiradaChecked) {
+                field.value = ""; // Limpa o campo se "Retirada" estiver marcado
+            }
+        });
+    }
+
 
     function checkFormaPagamento() {
         var formaPagamento = document.getElementById("forma_pagamento").value;

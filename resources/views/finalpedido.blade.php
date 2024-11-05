@@ -15,13 +15,11 @@
 
 
         <span>{{ $produto->nome }}</span>
-        <span>{{ $produto->categoria->nome }}</span>
-        <span>{{ $produto->tamanho }}</span>
+
         <span>{{ number_format($produto->preco, 2, ',', '.') }}</span>
 
         @if($produto->pivot->eMeioaMeio)
             <span>{{ $produto->pivot->metade->nome }}</span>
-            <span>{{ $produto->pivot->metade->tamanho }}</span>
             <span>{{ number_format($produto->pivot->metade->preco, 2, ',', '.') }}</span>
         @endif
 
@@ -36,16 +34,24 @@
         @endif
 
         <span>{{ $produto->pivot->observacao }}</span>
+        <span>{{ $produto->tamanho }}</span>
         <br>
     @endforeach
 
 
-    <span>Subtotal: {{ number_format($pedido->subtotal, 2, ',', '.') }}</span> <br>
+    <span>Total: {{ number_format($pedido->subtotal, 2, ',', '.') }}</span> <br>
     <span>Taxa de entrega: {{ number_format($pedido->taxa_entrega, 2, ',', '.') }}</span> <br>
     <span>Valor dos produtos: {{ number_format($pedido->subtotal - $pedido->taxa_entrega, 2, ',', '.') }}</span> <br>
-    <span>{{ $pedido->endereco }}</span> <br>
+    @if($pedido->retirada == true)
+        <span>Pagamento somente na retirada!</span>
+    @else
+        <span>{{ $pedido->endereco }} - {{ $pedido->bairro->nome }}</span> <br>
+        <span>Pagamento somente no momento da entrega!</span>
+    @endif
+    <br>
+
     @if($pedido->cupomId != null)
-        <span>{{ $pedido->cupom->nome }} - {{ $pedido->cupom->valor }}%</span> <br>
+        <span>Cupom utilizado: {{ $pedido->cupom->nome }} - {{ $pedido->cupom->valor }}%</span> <br>
     @endif
 
     <a href="{{ route('index') }}">Retornar a home</a>

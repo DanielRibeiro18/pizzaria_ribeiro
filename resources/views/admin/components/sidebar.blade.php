@@ -5,6 +5,7 @@
     </div>
 
     <a href="{{ route('dashboard') }}">Dashboard</a>
+    <a href="{{ route('despesa.list') }}">Despesas</a>
     <a href="{{ route('produto.list') }}">Produtos</a>
     <a href="{{ route('adicional.list') }}">Adicionais</a>
     <a href="{{ route('usuario.list') }}">Usuários</a>

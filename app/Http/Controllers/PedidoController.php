@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Despesa;
 use App\Horario;
 use App\ItemPedido;
 use App\Pedido;
@@ -214,7 +215,7 @@ class PedidoController extends Controller
         ]);
     }
 
-    public function cancelarPedido(Request $request, $id)
+    public function cancelarPedidoPendente(Request $request, $id)
     {
         // Encontrar o pedido pelo ID
         $pedido = Pedido::findOrFail($id);
@@ -232,8 +233,35 @@ class PedidoController extends Controller
         return redirect()->back()->with('success', 'Pedido cancelado com sucesso!');
     }
 
+    public function cancelarPedido(Request $request, $id)
+    {
+        // Encontrar o pedido pelo ID
+        $pedido = Pedido::findOrFail($id);
+
+        // Atualizar o status do pedido para 'cancelado'
+        $pedido->situacao = 'cancelado';
+
+        // Salvar o motivo do cancelamento
+        $pedido->motivo_cancelamento = $request->input('motivo');
+
+        // Salvar as alterações no banco de dados
+        $pedido->save();
+
+        $despesa = new Despesa();
+
+        $despesa->descricao = 'Cancelamento do pedido #' . $pedido->id;
+
+        $despesa->valor = $pedido->subtotal * 0.9;
+
+        $despesa->save();
+
+        // Redirecionar com uma mensagem de sucesso
+        return redirect()->back()->with('success', 'Pedido cancelado com sucesso!');
+    }
+
     public function finalizar(Request $request)
     {
+
         $usuario = auth()->user();
 
         // Buscar o pedido atual ou criar um novo
@@ -241,52 +269,68 @@ class PedidoController extends Controller
             ->where('usuarioId', $usuario->id)
             ->firstOrCreate(['usuarioId' => $usuario->id]);
 
-        // Verificar o bairro pelo CEP
-        $bairro = Bairro::where('nome', $request->bairro)->first();
+        // Verificar se o pedido é de retirada
+        if ($request->has('retirada') && $request->input('retirada') == 'on') {
+            $pedido->retirada = true;
+            $pedido->endereco = null;
+            $pedido->taxa_entrega = null;
+            $pedido->referencia = null;
+        } else {
+            // Verificar o bairro pelo CEP
+            $bairro = Bairro::where('nome', $request->bairro)->first();
 
-        if (!$bairro) {
-            return redirect()->back()->with('error', 'Bairro não encontrado para o CEP informado.');
+            if (!$bairro) {
+                return redirect()->back()->with('error', 'Bairro não encontrado para o CEP informado.');
+            }
+
+            // Atribuir o bairroId ao pedido e atualizar outras informações de entrega
+            $pedido->bairroId = $bairro->id;
+            $pedido->taxa_entrega = $request->taxa_entrega;
+            $pedido->endereco = $request->cep . ' - ' . $request->logradouro . ' - ' . $request->numero . ' - ' . $request->complemento;
+            $pedido->referencia = $request->referencia;
         }
 
-        // Atualizar informações do pedido
+        // Atualizar outras informações do pedido
         $pedido->situacao = 'pendente';
-        $pedido->taxa_entrega = $request->taxa_entrega;
         $pedido->valor_produtos = $pedido->produtos->sum('preco');
         $pedido->forma_pagamento = $request->forma_pagamento;
         $pedido->troco = $request->troco;
         $pedido->subtotal = $request->subtotal;
-        $pedido->endereco = $request->cep . ' - ' . $request->logradouro . ' - ' . $request->numero . ' - ' . $request->complemento;
-        $pedido->referencia = $request->referencia;
-
-        // Atribuir o bairroId ao pedido
-        $pedido->bairroId = $bairro->id;
-
-
 
         // Salvar o pedido no banco de dados
-        $pedido->save();
-
-
-        if($pedido->cupomId != null){
-            $pedido->cupom->quant_usos -= 1;
-
-            $pedido->cupom->save();
+        try {
+            $pedido->save();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Erro ao salvar o pedido: ' . $e->getMessage());
         }
 
+        // Reduzir o uso do cupom, se houver
+        if ($pedido->cupomId != null) {
+            $pedido->cupom->quant_usos -= 1;
+            $pedido->cupom->save();
+        }
 
         // Limpar o carrinho
         session()->put('itens_carrinho', 0);
 
         // Redirecionar para a página de pedido finalizado
-        return redirect(route('pedido.finalizado', $pedido->id));
+        return redirect(route('pedido.finalizado', $pedido->id))->with('success', 'Pedido finalizado com sucesso!');
     }
+
+
+
 
     public function voltarSituacao($id)
     {
         $pedido = Pedido::find($id);
 
-        // Array de situações possíveis
-        $situacoes = ['pendente', 'em preparo', 'saiu para entrega', 'finalizado'];
+        if ($pedido->retirada == true){
+            $situacoes = ['pendente', 'em preparo', 'pronto para retirada', 'finalizado'];
+        }else{
+            // Array de situações possíveis
+            $situacoes = ['pendente', 'em preparo', 'saiu para entrega', 'finalizado'];
+        }
+
 
         // Encontrar a situação atual no array e voltar uma posição, se possível
         $index = array_search($pedido->situacao, $situacoes);
@@ -303,8 +347,12 @@ class PedidoController extends Controller
     {
         $pedido = Pedido::find($id);
 
-        // Array de situações possíveis
-        $situacoes = ['pendente', 'em preparo', 'saiu para entrega', 'finalizado'];
+        if ($pedido->retirada == true){
+            $situacoes = ['pendente', 'em preparo', 'pronto para retirada', 'finalizado'];
+        }else{
+            // Array de situações possíveis
+            $situacoes = ['pendente', 'em preparo', 'saiu para entrega', 'finalizado'];
+        }
 
         // Encontrar a situação atual no array e avançar uma posição, se possível
         $index = array_search($pedido->situacao, $situacoes);

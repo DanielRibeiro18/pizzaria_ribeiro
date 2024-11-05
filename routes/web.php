@@ -113,6 +113,8 @@ Route::get('/admin/pedido', 'PedidoController@list')->name('pedido.list');
 
 Route::post('/pedido/cancelar/{id}', 'PedidoController@cancelarPedido')->name('pedido.cancelar');
 
+Route::post('/pedido/cancelarpendente/{id}', 'PedidoController@cancelarPedidoPendente')->name('pedido.cancelarPendente');
+
 Route::post('/admin/pedido/{id}/voltar-situacao', 'PedidoController@voltarSituacao')->name('pedido.voltarSituacao');
 Route::post('/admin/pedido/{id}/avancar-situacao', 'PedidoController@avancarSituacao')->name('pedido.avancarSituacao');
 
@@ -151,3 +153,11 @@ Route::post('/admin/bairro/{bairro}', 'BairroController@remover')->name('bairro.
 Route::get('admin/bairro/relatorio', 'BairroController@gerarPdf')->name('bairro.gerarPdf');
 
 Route::get('/admin/produto/logica', 'LogicaController@update')->name('logica.update');
+
+Route::get('/admin/despesa', 'DespesaController@list')->name('despesa.list');
+
+Route::post('/admin/despesa', 'DespesaController@registro')->name('despesa.registro');
+
+Route::post('/admin/despesa/{despesa}', 'DespesaController@remover')->name('despesa.remove');
+
+Route::get('admin/despesa/relatorio', 'DespesaController@gerarPdf')->name('despesa.gerarPdf');

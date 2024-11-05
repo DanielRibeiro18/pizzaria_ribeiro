@@ -36,19 +36,11 @@
 
                         <div class="produto-div">
                         @foreach($p->produtos as $produto)
-                            <span>
-                        <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;"><br>
-                    </span>
                             <span>{{ $produto->nome }} </span>
-                            <span>{{ $produto->tamanho }} </span>
                             <span>{{ number_format($produto->preco, 2, ',', '.') }}<br></span>
 
                             @if($produto->pivot->eMeioaMeio)
-                                <span>
-                            <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->pivot->metade->img) }}" alt="" style="width: 80px;"><br>
-                        </span>
                                 <span>{{ $produto->pivot->metade->nome }} </span>
-                                <span>{{ $produto->pivot->metade->tamanho }}</span>
                                 <span>{{ number_format($produto->pivot->metade->preco, 2, ',', '.') }}<br></span>
                             @endif
 
@@ -64,7 +56,8 @@
                                 <span>{{ number_format($produto->pivot->adicional2->valor, 2, ',', '.') }}<br></span>
                             @endif
 
-                            <span >{{ $produto->pivot->observacao }}</span>
+                            <span>{{ $produto->pivot->observacao }}</span>
+                            <span>{{ $produto->tamanho }}</span>
                             <br>
                         @endforeach
                         </div>
@@ -72,9 +65,13 @@
 
                         <span>Status: {{ $p->situacao }}</span> <br>
                         <span>Total dos produtos: R$ {{ number_format($p->subtotal - $p->taxa_entrega, 2, ',', '.') }}</span> <br>
-                        <span>Taxa de entrega: R$ {{ number_format($p->taxa_entrega, 2, ',', '.') }}</span> <br>
                         <span>Total: R$ {{ number_format($p->subtotal, 2, ',', '.') }}</span> <br>
-                        <span>{{ $p->bairro->cidade }} - {{ $p->endereco }}</span> <br>
+                        @if($p->retirada == true)
+                            <span>Retirada no local</span>
+                        @else
+                            <span>Taxa de entrega: R$ {{ number_format($p->taxa_entrega, 2, ',', '.') }}</span> <br>
+                            <span>{{ $p->bairro->cidade }} - {{ $p->endereco }}</span> <br>
+                        @endif
 
                         @if($p->cupomId != null)
                             <span>Cupom aplicado: </span>
@@ -84,11 +81,16 @@
                     </div>
 
                     <!-- Verifica se a situação é diferente de 'finalizado' para exibir os botões de ação -->
-                    @if(in_array($p->situacao, ['pendente', 'em preparo', 'saiu para entrega']))
+                    @if(in_array($p->situacao, ['pendente', 'em preparo', 'saiu para entrega', 'pronto para retirada']))
 
                         <div class="pedido-actions">
-                            <!-- Botão para cancelar o pedido -->
-                            <button type="button" class="btn-remover" onclick="showCancelModal({{ $p->id }})">Cancelar</button>
+                            @if($p->situacao === 'pendente')
+                                <button type="button" class="btn-remover" onclick="showCancelPendenteModal({{ $p->id }})">Cancelar</button>
+                            @else
+                                <!-- Botão para cancelar o pedido -->
+                                <button type="button" class="btn-remover" onclick="showCancelModal({{ $p->id }})">Cancelar</button>
+                            @endif
+
 
                             <!-- Botão para voltar situação -->
                             <form action="{{ route('pedido.voltarSituacao', $p->id) }}" method="POST" class="editar-form">
@@ -115,10 +117,23 @@
             @endforeach
         </div>
 
+        <!-- Modal para o motivo do cancelamento -->
+        <div id="cancelPendenteModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" onclick="location.reload()">&times;</span>
+                <h2>Motivo do Cancelamento</h2>
+                <form id="cancelPendenteForm" action="" method="POST">
+                    {{ csrf_field() }}
+                    <textarea name="motivo" rows="4" placeholder="Escreva o motivo do cancelamento" required></textarea><br>
+                    <button type="submit" class="btn-cancelar">Cancelar Pedido</button>
+                </form>
+            </div>
+        </div>
 
         <!-- Modal para o motivo do cancelamento -->
         <div id="cancelModal" class="modal" style="display:none;">
             <div class="modal-content">
+                <span>Despesa de cancelamento: 90% do total do pedido</span>
                 <span class="close" onclick="location.reload()">&times;</span>
                 <h2>Motivo do Cancelamento</h2>
                 <form id="cancelForm" action="" method="POST">
@@ -142,6 +157,20 @@
             window.onclick = function(event) {
                 if (event.target == document.getElementById('cancelModal')) {
                     document.getElementById('cancelModal').style.display = 'none';
+                }
+            }
+
+            function showCancelPendenteModal(pedidoId) {
+                // Definir a ação do formulário com a rota do pedido correspondente
+                document.getElementById('cancelPendenteForm').action = '/pedido/cancelarpendente/' + pedidoId;
+                // Exibir o modal
+                document.getElementById('cancelPendenteModal').style.display = 'block';
+            }
+
+            // Fechar o modal ao clicar fora da janela do modal
+            window.onclick = function(event) {
+                if (event.target == document.getElementById('cancelPendenteModal')) {
+                    document.getElementById('cancelPendenteModal').style.display = 'none';
                 }
             }
         </script>

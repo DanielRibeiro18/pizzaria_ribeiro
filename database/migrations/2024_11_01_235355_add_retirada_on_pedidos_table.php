@@ -14,7 +14,7 @@ class AddRetiradaOnPedidosTable extends Migration
     public function up()
     {
         Schema::table('pedidos', function (Blueprint $table) {
-            $table->boolean('retirada');
+            $table->boolean('retirada')->default(false);
         });
     }
 
