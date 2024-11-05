@@ -22,7 +22,7 @@
         <!-- Lucro Diário -->
         <div class="stats-container">
             <div class="lucro-diario">
-                <h2>Pedidos do dia: R$ {{ number_format($lucroDiario, 2, ',', '.') }}</h2>
+                <h2>Somatório de pedidos do dia: R$ {{ number_format($lucroDiario, 2, ',', '.') }}</h2>
             </div>
         </div>
 
