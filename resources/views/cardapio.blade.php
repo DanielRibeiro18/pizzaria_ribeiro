@@ -10,8 +10,7 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Food Menu</h5>
-            <h1 class="mb-5">Most Popular Items</h1>
+            <h1 class="mb-5">Cardápio</h1>
         </div>
         <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
             <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
@@ -79,7 +78,7 @@
                                                     <span>
                         <input type="checkbox" id="salgmmeioameio{{ $produto->id }}" style="font-size: 12px;"> Meio a meio
                     </span>
-                                                    <span class="text-primary">R$ {{ $produto->preco }}</span>
+                                                    <span class="text-primary">R$ {{ number_format($produto->preco, 2, ',', '.') }}</span>
                                                 </h5>
                                                 <small class="fst-italic">{{ $produto->descricao }}</small>
                                                 <!-- Botão para abrir o modal -->
@@ -300,7 +299,7 @@
                                                     <span>
                         <input type="checkbox" id="salgmmeioameio{{ $produto->id }}" style="font-size: 12px;"> Meio a meio
                     </span>
-                                                    <span class="text-primary">R$ {{ $produto->preco }}</span>
+                                                    <span class="text-primary">R$ {{ number_format($produto->preco, 2, ',', '.') }}</span>
                                                 </h5>
                                                 <small class="fst-italic">{{ $produto->descricao }}</small>
                                                 <!-- Botão para abrir o modal -->
@@ -546,7 +545,7 @@
                                                     <span>
                         <input type="checkbox" id="salgmmeioameio{{ $produto->id }}" style="font-size: 12px;"> Meio a meio
                     </span>
-                                                    <span class="text-primary">R$ {{ $produto->preco }}</span>
+                                                    <span class="text-primary">R$ {{ number_format($produto->preco, 2, ',', '.') }}</span>
                                                 </h5>
                                                 <small class="fst-italic">{{ $produto->descricao }}</small>
                                                 <!-- Botão para abrir o modal -->
@@ -767,7 +766,7 @@
                                                     <span>
                         <input type="checkbox" id="salgmmeioameio{{ $produto->id }}" style="font-size: 12px;"> Meio a meio
                     </span>
-                                                    <span class="text-primary">R$ {{ $produto->preco }}</span>
+                                                    <span class="text-primary">R$ {{ number_format($produto->preco, 2, ',', '.') }}</span>
                                                 </h5>
                                                 <small class="fst-italic">{{ $produto->descricao }}</small>
                                                 <!-- Botão para abrir o modal -->
@@ -989,7 +988,7 @@
                                             <div class="w-100 d-flex flex-column text-start ps-4">
                                                 <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                     <span>{{ $produto->nome }}</span>
-                                                    <span class="text-primary">R${{ $produto->preco  }}</span>
+                                                    <span class="text-primary">R$ {{ number_format($produto->preco, 2, ',', '.') }}</span>
                                                 </h5>
                                                 <small class="fst-italic">{{ $produto->descricao }}</small>
                                                 @auth

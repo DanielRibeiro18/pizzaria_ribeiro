@@ -261,7 +261,6 @@ class PedidoController extends Controller
 
     public function finalizar(Request $request)
     {
-
         $usuario = auth()->user();
 
         // Buscar o pedido atual ou criar um novo
@@ -285,7 +284,9 @@ class PedidoController extends Controller
 
             // Atribuir o bairroId ao pedido e atualizar outras informações de entrega
             $pedido->bairroId = $bairro->id;
-            $pedido->taxa_entrega = $request->taxa_entrega;
+
+            // Converter taxa de entrega e subtotal para formato numérico
+            $pedido->taxa_entrega = $this->convertToDecimal($request->taxa_entrega);
             $pedido->endereco = $request->cep . ' - ' . $request->logradouro . ' - ' . $request->numero . ' - ' . $request->complemento;
             $pedido->referencia = $request->referencia;
         }
@@ -293,9 +294,11 @@ class PedidoController extends Controller
         // Atualizar outras informações do pedido
         $pedido->situacao = 'pendente';
         $pedido->valor_produtos = $pedido->produtos->sum('preco');
+
+        // Converter subtotal e troco para formato numérico
         $pedido->forma_pagamento = $request->forma_pagamento;
-        $pedido->troco = $request->troco;
-        $pedido->subtotal = $request->subtotal;
+        $pedido->troco = $this->convertToDecimal($request->troco);
+        $pedido->subtotal = $this->convertToDecimal($request->subtotal);
 
         // Salvar o pedido no banco de dados
         try {
@@ -316,6 +319,18 @@ class PedidoController extends Controller
         // Redirecionar para a página de pedido finalizado
         return redirect(route('pedido.finalizado', $pedido->id))->with('success', 'Pedido finalizado com sucesso!');
     }
+
+// Função para converter valores formatados com vírgula para decimal
+    private function convertToDecimal($value)
+    {
+        // Remove espaços e caracteres não numéricos, exceto vírgula
+        $value = str_replace(' ', '', $value);
+        $value = str_replace('.', '', $value); // Remove ponto como separador de milhar
+        $value = str_replace(',', '.', $value); // Substitui vírgula por ponto
+
+        return (float) $value; // Converte para float
+    }
+
 
 
 

@@ -8,18 +8,18 @@
 
 @foreach($produtos as $produto)
     <span>{{ $produto->nome }}</span>
-    <span>{{ $produto->preco }}</span>
+    <span>R$ {{ number_format($produto->preco, 2, ',', '.') }}</span>
     @if($produto->pivot->eMeioaMeio)
         <span>{{ $produto->pivot->metade->nome }}</span>
-        <span>{{ $produto->pivot->metade->preco }}</span>
+        <span>R$ {{ number_format($produto->pivot->metade->preco, 2, ',', '.') }}</span>
     @endif
     @if($produto->pivot->adicional1 != null)
         <span>{{ $produto->pivot->adicional1->nome }}</span>
-        <span>{{ $produto->pivot->adicional1->valor }}</span>
+        <span>{{ number_format($produto->pivot->adicional1->valor, 2, ',', '.') }} </span>
     @endif
     @if($produto->pivot->adicional2 != null)
         <span>{{ $produto->pivot->adicional2->nome }}</span>
-        <span>{{ $produto->pivot->adicional2->valor }}</span>
+        <span>{{ number_format($produto->pivot->adicional2->valor, 2, ',', '.') }}</span>
     @endif
     <span>{{ $produto->tamanho }}</span>
     <span>{{ $produto->pivot->observacao }}</span>
@@ -36,8 +36,8 @@
     <!-- Forma de Pagamento -->
     <div class="form-group">
 
-        <h3 hidden>Total: <span id="totalPreco" hidden>{{ $totalPreco}}</span></h3>
-        <h3>Total: <span id="totalCupom">{{ $totalCupom}}</span></h3>
+        <h3 hidden>Total: R$ <span id="totalPreco" hidden>{{ number_format($totalPreco, 2, ',', '.') }}</span></h3>
+        <h3>Total: R$ <span id="totalCupom">{{ number_format($totalCupom, 2, ',', '.') }}</span></h3>
         <h3>Cupom aplicado: <span id="nomeCupom">{{ $nomeCupom}}</span><span id="valorCupom"> - {{ $valorCupom}}% de desconto </span> <span id="descCategoria"> em: {{ $descCategoria}}</span></h3>
         <label for="forma_pagamento">Forma de Pagamento</label>
         <select id="forma_pagamento" name="forma_pagamento" class="form-control" onchange="checkFormaPagamento()">
@@ -64,7 +64,7 @@
     <!-- Valor dos Produtos -->
     <div class="form-group">
         <label for="valor_produtos">Valor dos Produtos:</label>
-        <input type="text" id="valor_produtos" name="valor_produtos" class="form-control" value="{{ $totalCupom}}" readonly>
+        <input type="text" id="valor_produtos" name="valor_produtos" class="form-control" value="{{ number_format($totalCupom, 2, ',', '.') }}" readonly>
     </div>
 
     <!-- Subtotal -->
@@ -259,6 +259,11 @@
         const totalPrecoElement = document.querySelector('#totalCupom');
         const bairros = @json($bairros);
 
+        // Função para formatar o número com vírgula e duas casas decimais
+        function numberFormat(value) {
+            return value.toFixed(2).replace('.', ',');
+        }
+
         cepInput.addEventListener('blur', function() {
             const cep = cepInput.value.replace(/\D/g, '');
 
@@ -282,11 +287,16 @@
                             const bairroEncontrado = bairros.find(bairro => bairro.nome.toLowerCase() === bairroNome);
 
                             if (bairroEncontrado) {
-                                taxaEntregaInput.value = (bairroEncontrado.valor_entrega);
-                                const totalPreco = parseFloat(totalPrecoElement.textContent);
-                                const taxaEntrega = parseFloat(taxaEntregaInput.value);
+                                // Formata a taxa de entrega com vírgula
+                                const taxaEntrega = parseFloat(bairroEncontrado.valor_entrega);
+                                taxaEntregaInput.value = numberFormat(taxaEntrega);
+
+                                // Substituir vírgula por ponto para conversão numérica de totalCupom
+                                const totalPreco = parseFloat(totalPrecoElement.textContent.replace(',', '.'));
                                 const subtotal = totalPreco + taxaEntrega;
-                                subtotalInput.value = subtotal.toFixed(2);
+
+                                // Formata o subtotal com vírgula
+                                subtotalInput.value = numberFormat(subtotal);
                             } else {
                                 taxaEntregaInput.value = '';
                                 subtotalInput.value = totalPrecoElement.textContent;
@@ -299,6 +309,7 @@
             }
         });
     });
+
 </script>
 
 @include('components.footer')

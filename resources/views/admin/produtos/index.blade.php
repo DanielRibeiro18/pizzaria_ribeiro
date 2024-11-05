@@ -86,7 +86,7 @@
                         <span class="produto-imagem"> <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;"> <br> </span>
                         <span class="produto-nome">{{ $produto->nome }}</span>
                         <span class="produto-tamanho">{{ $produto->tamanho }}</span>
-                        <span class="produto-preco">{{ $produto->preco }}</span>
+                        <span class="produto-preco">R$ {{ number_format($produto->preco, 2, ',', '.') }}</span>
 
                         @if($produto->ativo)
                             <span>Ativo</span>

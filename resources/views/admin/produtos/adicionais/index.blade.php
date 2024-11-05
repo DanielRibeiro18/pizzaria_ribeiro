@@ -45,7 +45,7 @@
         @foreach($adicionais as $adicional)
             <div class="adicional-item">
                 <span class="adicional-nome">{{ $adicional->nome }}</span>
-                <span class="adicional-valor">{{ $adicional->valor }}</span>
+                <span class="adicional-valor">R$ {{ number_format($adicional->valor, 2, ',', '.') }}</span>
                 <form action="{{ route('adicional.delete', $adicional->id) }}" method="POST" class="remover-form">
                     {{ csrf_field() }}
                     <button type="submit" class="btn btn-danger">Remover</button>
