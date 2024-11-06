@@ -30,26 +30,46 @@
     </form>
 @endforeach
 
-<form action="{{ route('pedido.finaliza') }}" method="POST">
+@if(session('Cupom_invalido'))
+    <div class="alert-erro-cupom alert-danger" style="text-align: center; margin-top: 10px;">
+        {{ session('Cupom_invalido') }}
+    </div>
+@endif
+
+@if(session('Sucesso_cupom'))
+    <div class="alert-sucesso-cupom" style="text-align: center; margin-top: 10px;">
+        {{ session('Sucesso_cupom') }}
+    </div>
+@endif
+
+<form action="{{ route('cupom.aplica') }}" method="POST" class="formCupom">
+    {{ csrf_field() }}
+    <label for="cupom">Cupom:</label>
+    <input type="text" id="cupom" name="cupom">
+    <button type="submit" value="aplicar">APLICAR</button>
+</form>
+
+<form action="{{ route('pedido.finaliza') }}" method="POST" class="form">
     {{ csrf_field() }}
 
     <!-- Forma de Pagamento -->
     <div class="form-group">
 
-        <h3 hidden>Total: R$ <span id="totalPreco" hidden>{{ number_format($totalPreco, 2, ',', '.') }}</span></h3>
-        <h3>Total: R$ <span id="totalCupom">{{ number_format($totalCupom, 2, ',', '.') }}</span></h3>
+        <h3 hidden>Subtotal: R$ <span id="totalPreco" hidden>{{ number_format($totalPreco, 2, ',', '.') }}</span></h3>
+        <h3>Subtotal: R$ <span id="totalCupom">{{ number_format($totalCupom, 2, ',', '.') }}</span></h3>
         <h3>Cupom aplicado: <span id="nomeCupom">{{ $nomeCupom}}</span><span id="valorCupom"> - {{ $valorCupom}}% de desconto </span> <span id="descCategoria"> em: {{ $descCategoria}}</span></h3>
         <label for="forma_pagamento">Forma de Pagamento</label>
-        <select id="forma_pagamento" name="forma_pagamento" class="form-control" onchange="checkFormaPagamento()">
+        <select id="forma_pagamento" name="forma_pagamento" onchange="checkFormaPagamento()">
             <option value="cartao">Cartão</option>
             <option value="dinheiro">Dinheiro</option>
+            <option value="pix">Pix</option>
         </select>
     </div>
 
     <!-- Troco -->
     <div id="troco_section" class="form-group" style="display: none;">
         <label for="precisa_troco">Precisa de troco?</label>
-        <select id="precisa_troco" name="precisa_troco" class="form-control" onchange="checkTroco()">
+        <select id="precisa_troco" name="precisa_troco" onchange="checkTroco()">
             <option value="nao">Não</option>
             <option value="sim">Sim</option>
         </select>
@@ -57,20 +77,20 @@
 
     <div id="troco_valor_section" class="form-group" style="display: none;">
         <label for="troco">Valor para troco:</label>
-        <input type="text" id="troco" name="troco" class="form-control" oninput="calculateTroco()">
+        <input type="text" id="troco" name="troco" oninput="calculateTroco()">
         <small id="troco_result" class="form-text text-muted"></small>
     </div>
 
     <!-- Valor dos Produtos -->
     <div class="form-group">
         <label for="valor_produtos">Valor dos Produtos:</label>
-        <input type="text" id="valor_produtos" name="valor_produtos" class="form-control" value="{{ number_format($totalCupom, 2, ',', '.') }}" readonly>
+        <input type="text" id="valor_produtos" name="valor_produtos" value="{{ number_format($totalCupom, 2, ',', '.') }}" readonly>
     </div>
 
     <!-- Subtotal -->
     <div class="form-group">
         <label for="subtotal">Subtotal</label>
-        <input type="text" id="subtotal" name="subtotal" class="form-control" value="" readonly>
+        <input type="text" id="subtotal" name="subtotal" value="" readonly>
     </div>
 
     <div class="form-group">
@@ -81,68 +101,47 @@
     <!-- Taxa de Entrega -->
     <div class="form-group">
         <label for="taxa_entrega">Taxa de Entrega</label>
-        <input type="text" id="taxa_entrega" name="taxa_entrega" class="form-control" value="" readonly>
+        <input type="text" id="taxa_entrega" name="taxa_entrega" value="" readonly>
     </div>
 
     <!-- CEP -->
     <div class="form-group">
         <label for="cep">CEP</label>
-        <input type="text" id="cep" name="cep" class="form-control" oninput="mascaraCEP(this)">
+        <input type="text" id="cep" name="cep" oninput="mascaraCEP(this)">
     </div>
 
     <!-- Logradouro -->
     <div class="form-group">
         <label for="logradouro">Logradouro</label>
-        <input type="text" id="logradouro" name="logradouro" class="form-control">
+        <input type="text" id="logradouro" name="logradouro" >
     </div>
 
     <!-- Bairro -->
     <div class="form-group">
         <label for="bairro">Bairro</label>
-        <input type="text" id="bairro" name="bairro" class="form-control">
+        <input type="text" id="bairro" name="bairro" >
     </div>
 
     <!-- Número -->
     <div class="form-group">
         <label for="numero">Número</label>
-        <input type="text" id="numero" name="numero" class="form-control">
+        <input type="text" id="numero" name="numero" >
     </div>
 
     <!-- Complemento -->
     <div class="form-group">
         <label for="complemento">Complemento</label>
-        <input type="text" id="complemento" name="complemento" class="form-control">
+        <input type="text" id="complemento" name="complemento" >
     </div>
 
     <!-- Referência -->
     <div class="form-group">
         <label for="referencia">Referência</label>
-        <input type="text" id="referencia" name="referencia" class="form-control">
+        <input type="text" id="referencia" name="referencia" >
     </div>
 
     <button type="submit" class="btn btn-primary">Finalizar Pedido</button>
 </form>
-
-@if(session('Cupom_invalido'))
-    <div class="alert-erro-cupom alert-danger" style="text-align: center;">
-        {{ session('Cupom_invalido') }}
-    </div>
-@endif
-
-@if(session('Sucesso_cupom'))
-    <div class="alert-sucesso-cupom" style="text-align: center;">
-        {{ session('Sucesso_cupom') }}
-    </div>
-@endif
-
-<form action="{{ route('cupom.aplica') }}" method="POST">
-    {{ csrf_field() }}
-    <label for="cupom">Cupom:</label>
-    <input type="text" id="cupom" name="cupom" class="form-control">
-    <button type="submit" value="aplicar">Aplicar cupom</button>
-</form>
-
-<a href="{{ route('cardapio') }}">Voltar ao cardápio</a>
 
 <style>
     .alert-erro-cupom {
@@ -164,6 +163,148 @@
         margin-bottom: 20px; /* Espaçamento abaixo do alerta */
         text-align: center; /* Centraliza o texto */
     }
+
+    /* Centralizar o contêiner do formulário */
+    .form {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 0 auto; /* Centraliza o formulário horizontalmente */
+    }
+
+    /* Estilos para os títulos */
+    .form h3 {
+        margin-bottom: 15px;
+        color: #333333;
+        font-weight: 600;
+        font-size: 1.2em;
+    }
+
+    /* Estilos para os grupos de formulários */
+    .form .form-group {
+        margin-bottom: 20px;
+    }
+
+    /* Estilos para os labels */
+    .form .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #555555;
+    }
+
+    /* Estilos para os inputs e selects */
+    .form .form-group input[type="text"],
+    .form .form-group select {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+        color: #333333;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+    }
+
+    .form .form-group input[type="text"]:focus,
+    .form .form-group select:focus {
+        border-color: #007bff; /* Cor de destaque ao focar */
+        outline: none;
+    }
+
+    /* Estilo para checkbox */
+    .form .form-group input[type="checkbox"] {
+        margin-right: 5px;
+    }
+
+    /* Estilo para o botão dentro do formulário */
+    .form button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        font-size: 1em;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #FA8032; /* Cor de fundo atualizada */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .form button[type="submit"]:hover {
+        background-color: #e6761f; /* Cor de hover ajustada */
+    }
+
+    /* Texto auxiliar abaixo dos inputs */
+    .form .form-text {
+        font-size: 0.9em;
+        color: #888888;
+    }
+
+    /* Estilo para mensagens de cupom */
+    .form #nomeCupom,
+    .form #valorCupom,
+    .form #descCategoria {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    /* Centralizar o contêiner do formulário de cupom */
+    .formCupom {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Estilos para o label */
+    .formCupom label {
+        font-weight: 500;
+        color: #555555;
+        margin-right: 10px;
+    }
+
+    /* Estilo para o campo de entrada de texto */
+    .formCupom input[type="text"] {
+        flex: 1; /* Faz com que o campo ocupe o máximo de espaço possível */
+        padding: 10px;
+        font-size: 1em;
+        color: #333333;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        transition: border-color 0.3s;
+        box-sizing: border-box;
+    }
+
+    .formCupom input[type="text"]:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    /* Estilo para o botão */
+    .formCupom button[type="submit"] {
+        padding: 10px 20px;
+        font-size: 1em;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #FA8032;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-left: 5px;
+    }
+
+    .formCupom button[type="submit"]:hover {
+        background-color: #e6761f;
+    }
+
 </style>
 
 <script>
