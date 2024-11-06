@@ -116,7 +116,7 @@
                                                         <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST" class="d-inline">
                                                             {{ csrf_field() }}
                                                             <div class="form-group mt-3">
-                                                                <label for="salgmediaObservacao" class="text-white">Observação:</label>
+                                                                <label for="salgmediaObservacao" class="text-white">Observações/particularidades (alergias ou exclusão de itens):</label>
                                                                 <input type="text" class="form-control" id="salgmediaObservacao{{ $produto->id }}" name="observacao">
                                                             </div>
                                                             <input id="salgmediaMetadeId{{ $produto->id }}" name="metadeId" value="" hidden>
@@ -337,7 +337,7 @@
                                                         <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST" class="d-inline">
                                                             {{ csrf_field() }}
                                                             <div class="form-group mt-3">
-                                                                <label for="salggrandeObservacao" class="text-white">Observação:</label>
+                                                                <label for="salggrandeObservacao" class="text-white">Observações/particularidades (alergias ou exclusão de itens)</label>
                                                                 <input type="text" class="form-control" id="salggrandeObservacao{{ $produto->id }}" name="observacao">
                                                             </div>
                                                             <input id="salggrandeMetadeId{{ $produto->id }}" name="metadeId" value="" hidden>
@@ -583,7 +583,7 @@
                                                         <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST" class="d-inline">
                                                             {{ csrf_field() }}
                                                             <div class="form-group mt-3">
-                                                                <label for="docemediaObservacao" class="text-white">Observação:</label>
+                                                                <label for="docemediaObservacao" class="text-white">Observações/particularidades (alergias ou exclusão de itens)</label>
                                                                 <input type="text" class="form-control" id="docemediaObservacao{{ $produto->id }}" name="observacao">
                                                             </div>
                                                             <input id="docemediaMetadeId{{ $produto->id }}" name="metadeId" value="" hidden>
@@ -804,7 +804,7 @@
                                                         <form action="{{ route('pedido.adiciona', $produto->id) }}" method="POST" class="d-inline">
                                                             {{ csrf_field() }}
                                                             <div class="form-group mt-3">
-                                                                <label for="docegrandeObservacao" class="text-white">Observação:</label>
+                                                                <label for="docegrandeObservacao" class="text-white">Observações/particularidades (alergias ou exclusão de itens)</label>
                                                                 <input type="text" class="form-control" id="docegrandeObservacao{{ $produto->id }}" name="observacao">
                                                             </div>
                                                             <input id="docegrandeMetadeId{{ $produto->id }}" name="metadeId" value="" hidden>

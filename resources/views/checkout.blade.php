@@ -6,29 +6,56 @@
 <body>
 @include('components.navbar', ['theme'=>'Finalize seu pedido!'])
 
-@foreach($produtos as $produto)
-    <span>{{ $produto->nome }}</span>
-    <span>R$ {{ number_format($produto->preco, 2, ',', '.') }}</span>
-    @if($produto->pivot->eMeioaMeio)
-        <span>{{ $produto->pivot->metade->nome }}</span>
-        <span>R$ {{ number_format($produto->pivot->metade->preco, 2, ',', '.') }}</span>
-    @endif
-    @if($produto->pivot->adicional1 != null)
-        <span>{{ $produto->pivot->adicional1->nome }}</span>
-        <span>{{ number_format($produto->pivot->adicional1->valor, 2, ',', '.') }} </span>
-    @endif
-    @if($produto->pivot->adicional2 != null)
-        <span>{{ $produto->pivot->adicional2->nome }}</span>
-        <span>{{ number_format($produto->pivot->adicional2->valor, 2, ',', '.') }}</span>
-    @endif
-    <span>{{ $produto->tamanho }}</span>
-    <span>{{ $produto->pivot->observacao }}</span>
-    <br>
-    <form action="{{ route('pedido.remove', $produto->pivot->id) }}" method="POST">
-        {{ csrf_field() }}
-        <button type="submit" value="remover">Remover do carrinho</button>
-    </form>
-@endforeach
+<table class="tabela-produtos">
+    <thead>
+    <tr>
+        <th>Produto</th>
+        <th>Metade</th>
+        <th>Adicional 1</th>
+        <th>Adicional 2</th>
+        <th>Tamanho</th>
+        <th>Observação</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach($produtos as $produto)
+        <tr>
+            <td>{{ $produto->nome }} - R$ {{ number_format($produto->preco, 2, ',', '.') }}</td>
+
+            @if($produto->pivot->eMeioaMeio)
+                <td>{{ $produto->pivot->metade->nome }} - R$ {{ number_format($produto->pivot->metade->preco, 2, ',', '.') }}</td>
+            @else
+                <td>-</td>
+            @endif
+
+            @if($produto->pivot->adicional1 != null)
+                <td>{{ $produto->pivot->adicional1->nome }} - R$ {{ number_format($produto->pivot->adicional1->valor, 2, ',', '.') }}</td>
+            @else
+                <td>-</td>
+            @endif
+
+            @if($produto->pivot->adicional2 != null)
+                <td>{{ $produto->pivot->adicional2->nome }} - R$ {{ number_format($produto->pivot->adicional2->valor, 2, ',', '.') }}</td>
+            @else
+                <td>-</td>
+            @endif
+
+            <td>{{ $produto->tamanho }}</td>
+            <td>{{ $produto->pivot->observacao }}</td>
+            <td>
+                <form action="{{ route('pedido.remove', $produto->pivot->id) }}" method="POST">
+                    {{ csrf_field() }}
+                    <button type="submit" value="remover" class="btn-lixo">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    @endforeach
+    </tbody>
+</table>
+
+
 
 @if(session('Cupom_invalido'))
     <div class="alert-erro-cupom alert-danger" style="text-align: center; margin-top: 10px;">
@@ -57,7 +84,9 @@
 
         <h3 hidden>Subtotal: R$ <span id="totalPreco" hidden>{{ number_format($totalPreco, 2, ',', '.') }}</span></h3>
         <h3>Subtotal: R$ <span id="totalCupom">{{ number_format($totalCupom, 2, ',', '.') }}</span></h3>
-        <h3>Cupom aplicado: <span id="nomeCupom">{{ $nomeCupom}}</span><span id="valorCupom"> - {{ $valorCupom}}% de desconto </span> <span id="descCategoria"> em: {{ $descCategoria}}</span></h3>
+        @if(session('Sucesso_cupom'))
+            <h3>Cupom aplicado: <span id="nomeCupom">{{ $nomeCupom }}</span><span id="valorCupom"> - {{ $valorCupom }}% de desconto </span> <span id="descCategoria"> em: {{ $descCategoria }}</span></h3>
+        @endif
         <label for="forma_pagamento">Forma de Pagamento</label>
         <select id="forma_pagamento" name="forma_pagamento" onchange="checkFormaPagamento()">
             <option value="cartao">Cartão</option>
@@ -171,7 +200,7 @@
         border-radius: 10px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         max-width: 600px;
-        margin: 0 auto; /* Centraliza o formulário horizontalmente */
+        margin: 20px auto 0; /* Centraliza o formulário horizontalmente */
     }
 
     /* Estilos para os títulos */
@@ -258,10 +287,11 @@
         border-radius: 10px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         max-width: 400px;
-        margin: 0 auto;
+        margin: 20px auto 0; /* Margem superior de 40px, centralizado horizontalmente */
         display: flex;
         align-items: center;
     }
+
 
     /* Estilos para o label */
     .formCupom label {
@@ -304,6 +334,55 @@
     .formCupom button[type="submit"]:hover {
         background-color: #e6761f;
     }
+
+    /* Estilos para a tabela de produtos */
+    .tabela-produtos {
+        width: 80%;
+        border-collapse: collapse;
+        margin: 0 auto;
+        font-size: 1em;
+        background-color: #f9f9f9;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .tabela-produtos td {
+        padding: 10px;
+        border: 1px solid #dddddd;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    /* Estilo para as células de cabeçalho, caso seja necessário adicionar */
+    .tabela-produtos th {
+        background-color: #FA8032;
+        color: #ffffff;
+        padding: 12px;
+        font-weight: bold;
+        border: 1px solid #dddddd;
+    }
+
+    /* Estilo alternado para as linhas */
+    .tabela-produtos tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Estilo para o botão de remover */
+    .tabela-produtos button[type="submit"] {
+        padding: 6px 12px;
+        font-size: 0.9em;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #FA8032;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .tabela-produtos button[type="submit"]:hover {
+        background-color: #e6761f;
+    }
+
 
 </style>
 
