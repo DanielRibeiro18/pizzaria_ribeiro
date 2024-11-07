@@ -7,7 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
     <!-- Favicon -->
-    <link href="site/img/pizzaria-logo.ico" rel="icon">
+    <link href="{{ URL::to('/') }}/site/img/pizzaria-logo.ico" rel="icon">
 
     <style>
         body {

@@ -225,7 +225,7 @@
     </div>
     <!-- Testimonial End -->
 
-    @include('components.footer');
+    @include('components.footer')
 </body>
 
 </html>
