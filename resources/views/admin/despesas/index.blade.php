@@ -46,7 +46,7 @@
                 <label for="data_fim">Data Fim:</label>
                 <input type="date" id="data_fim" name="data_fim" required>
 
-                <button type="submit" class="btn btn-relatorio">Relatório de Lucros</button>
+                <button type="submit" class="btn btn-relatorio">Relatório Financeiro</button>
             </form>
         </div>
 

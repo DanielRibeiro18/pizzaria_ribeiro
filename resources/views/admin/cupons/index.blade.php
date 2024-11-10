@@ -32,7 +32,8 @@
                     <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
                 @endforeach
             </select>
-
+            <label for="quant_usos">Quantidade de usos:</label>
+            <input type="text" id="quant_usos" name="quant_usos" required>
 
             <label for="data_valida">Data válida:</label>
             <select name="data_valida">

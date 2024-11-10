@@ -492,7 +492,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.erro) {
-                            alert('CEP não encontrado.');
+                            alert('CEP não cadastrado.');
                             logradouroInput.value = '';
                             bairroInput.value = '';
                             numeroInput.value = ''; // Mantenha vazio para o usuário preencher

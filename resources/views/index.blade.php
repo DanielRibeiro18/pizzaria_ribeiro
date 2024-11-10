@@ -27,7 +27,6 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0 pe-4">
                     <a href="{{route('index')}}" class="nav-item nav-link">Home</a>
-                    <a href="{{route('contato')}}" class="nav-item nav-link">Contato</a>
                     @guest
                         <a href="{{route('registro')}}" class="nav-item nav-link">Registro</a>
                         <a href="{{route('login')}}" class="nav-item nav-link">Login</a>
