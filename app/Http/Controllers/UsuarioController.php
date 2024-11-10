@@ -157,7 +157,14 @@ class UsuarioController extends Controller
         $usuario->cpf = $cpfNumeros; // Armazena o CPF sem caracteres especiais
         $usuario->email = $request->email;
         $usuario->senha = Hash::make($request->senha);
-        $usuario->admin = true;
+        $usuario->func = true;
+
+        if($request->admin == 'sim'){
+            $usuario->admin = true;
+        } else{
+           $usuario->admin = false;
+        }
+
         $usuario->save();
 
         return redirect(route('usuario.list'));
@@ -246,6 +253,13 @@ class UsuarioController extends Controller
         $usuario->telefone = $telefonelimpo;
         $usuario->cpf = $cpfNumeros;
         $usuario->email = $request->email;
+
+        if($request->admin == 'sim'){
+            $usuario->admin = true;
+        } else{
+            $usuario->admin = false;
+        }
+
 
         $usuario->save();
 

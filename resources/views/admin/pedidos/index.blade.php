@@ -19,12 +19,14 @@
             </div>
         </div>
 
+        @if(auth()->user()->admin)
         <div class="text-center mt-4">
             <form action="{{ route('pedido.gerarPdf') }}" method="GET">
                 {{ csrf_field() }}
                 <button type="submit" class="btn btn-relatorio">Relatório de Pedidos</button>
             </form>
         </div>
+        @endif
 
         <div class="grid-pedidos">
             @foreach($pedidos as $p)

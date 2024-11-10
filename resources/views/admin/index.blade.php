@@ -19,7 +19,10 @@
             </div>
         </div>
 
-        <!-- Lucro Diário -->
+        @if(auth()->user()->admin)
+            <h1 style="text-align: center">Bem-vindo a área de administração da Pizzaria Ribeiro!</h1>
+            <h2 style="text-align: center">Navegue pelas opções ao lado para o gerenciamento do sistema.</h2>
+        <!-- Somatório Diário -->
         <div class="stats-container">
             <div class="lucro-diario">
                 <h2>Somatório de pedidos do dia: R$ {{ number_format($lucroDiario, 2, ',', '.') }}</h2>
@@ -54,6 +57,10 @@
             </div>
 
         </div>
+        @else
+            <h1 style="text-align: center">Bem-vindo a área de administração da Pizzaria Ribeiro!</h1>
+            <h2 style="text-align: center">Navegue pelas opções ao lado para o gerenciamento do sistema.</h2>
+        @endif
 
 
         <div id="grafico-container" style="width: 100%; height: 400px;"></div>

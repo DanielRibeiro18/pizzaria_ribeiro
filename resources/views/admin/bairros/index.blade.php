@@ -20,29 +20,33 @@
             </div>
         </div>
 
-        <form action="{{ route('bairro.registro') }}" method="POST" class="form-registro">
-            {{ csrf_field() }}
+        @if(auth()->user()->admin)
+            <form action="{{ route('bairro.registro') }}" method="POST" class="form-registro">
+                {{ csrf_field() }}
 
-            <label for="cep">CEP:</label>
-            <input type="text" id="cep" name="cep" required>
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" name="cep" required>
 
-            <label for="cidade">Cidade:</label>
-            <input type="text" id="cidade" name="cidade" readonly>
+                <label for="cidade">Cidade:</label>
+                <input type="text" id="cidade" name="cidade" readonly>
 
-            <label for="bairro">Bairro:</label>
-            <input type="text" id="bairro" name="bairro" readonly>
+                <label for="bairro">Bairro:</label>
+                <input type="text" id="bairro" name="bairro" readonly>
 
-            <label for="valor_entrega">Taxa de entrega:</label>
-            <input type="text" id="valor_entrega" name="valor_entrega">
+                <label for="valor_entrega">Taxa de entrega:</label>
+                <input type="text" id="valor_entrega" name="valor_entrega">
 
-            <button type="submit" class="btn-registrar">Criar Bairro</button>
-        </form>
-
-        <div class="text-center mt-4">
-            <form action="{{ route('bairro.gerarPdf') }}" method="GET">
-                <button type="submit" class="btn btn-relatorio">Relatório de Bairros</button>
+                <button type="submit" class="btn-registrar">Criar Bairro</button>
             </form>
-        </div>
+
+            <div class="text-center mt-4">
+                <form action="{{ route('bairro.gerarPdf') }}" method="GET">
+                    <button type="submit" class="btn btn-relatorio">Relatório de Bairros</button>
+                </form>
+            </div>
+        @endif
+
+
 
         <div class="grid-bairros">
             @foreach($bairro as $b)
@@ -52,10 +56,13 @@
                     <span class="bairro-valor">Taxa de entrega: R$ {{ number_format($b->valor_entrega, 2, ',', '.') }}</span>
 
 
-                    <form action="{{ route('bairro.remove', $b->id) }}" method="POST" class="remover-form">
-                        {{ csrf_field() }}
-                        <button type="submit" class="btn btn-danger">Remover</button>
-                    </form>
+                    @if(auth()->user()->admin)
+                        <form action="{{ route('bairro.remove', $b->id) }}" method="POST" class="remover-form">
+                            {{ csrf_field() }}
+                            <button type="submit" class="btn btn-danger">Remover</button>
+                        </form>
+                    @endif
+
                 </div>
             @endforeach
         </div>

@@ -28,6 +28,9 @@
 
             <label for="valor">Valor (em %):</label>
             <input type="text" id="valor" name="valor" value="{{ $cupom->valor }}" required>
+
+            <label for="quant_usos">Quantidade de usos:</label>
+            <input type="text" id="quant_usos" name="quant_usos" value="{{ $cupom->quant_usos }}" required>
             <label for="categoriacupom">Categoria:</label>
             <select name="categoriacupom" id="categoriacupom">
                 @foreach($categorias as $categoria)

@@ -43,6 +43,7 @@ class CupomController extends Controller
         $cupom = new Cupom();
         $cupom->nome = $request->nome;
         $cupom->valor = $request->valor;
+        $cupom->quant_usos = $request->quant_usos;
         $cupom->ativo = true;
         $cupom->data_valida = $request->data_valida;
         $cupom->save(); // Salva o cupom primeiro
@@ -113,6 +114,7 @@ class CupomController extends Controller
         // Atualiza os dados do cupom
         $cupom->nome = $request->nome;
         $cupom->valor = $request->valor;
+        $cupom->quant_usos = $request->quant_usos;
 
         // Verifica se o checkbox 'ativo' foi marcado e atribui o valor booleano
         $cupom->ativo = $request->has('ativo') ? true : false;

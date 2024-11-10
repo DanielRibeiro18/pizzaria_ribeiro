@@ -37,7 +37,7 @@
                     @endauth
                 </div>
                 @auth
-                    @if(auth()->user()->admin)
+                    @if(auth()->user()->admin || auth()->user()->func)
                         <a href="{{route('dashboard')}}" class="btn btn-primary py-2 px-4" style="margin-right: 20px;">Área admin</a>
                     @endif
                 @endauth

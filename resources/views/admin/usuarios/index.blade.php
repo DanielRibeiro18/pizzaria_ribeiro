@@ -39,6 +39,11 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
 
+            <label for="admin">Admin:</label>
+            <select name="admin" id="admin">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
 
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required>
@@ -63,10 +68,16 @@
                         <span class="usuario-nome">{{ $usuario->nome }}</span>
                         <span class="usuario-email">{{ $usuario->email }}</span>
                         <span class="usuario-cpf" id="cpf-{{ $usuario->id }}">{{ $usuario->cpf }}</span>
+
+                        @if($usuario->func && !$usuario->admin)
+                            <span class="usuario-func">Funcionário</span><br>
+
+                        @endif
+
                         @if($usuario->admin)
-                            <span class="usuario-admin">É admin</span>
+                            <span class="usuario-admin">Administrador</span>
                         @else
-                            <span class="usuario-admin">Não é admin</span>
+                            <span class="usuario-admin">Não é administrador</span>
                         @endif
 
                     </div>

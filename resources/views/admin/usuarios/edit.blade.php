@@ -29,8 +29,6 @@
             {{ method_field('PUT') }}
             {{ csrf_field() }}
 
-
-
             <label for="nome">Nome Completo:</label>
             <input type="text" id="nome" name="nome" value="{{ $usuario->nome }}" required>
 
@@ -40,11 +38,16 @@
             <label for="cpf">Cpf:</label>
             <input type="text" id="cpf" name="cpf" value="{{ $usuario->cpf }}" required maxlength="14">
 
+            <label for="admin">Admin:</label>
+            <select name="admin" id="admin">
+                <option value="sim" {{ $usuario->admin ? 'selected' : '' }}>Sim</option>
+                <option value="nao" {{ !$usuario->admin ? 'selected' : '' }}>Não</option>
+            </select>
+
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" value="{{ $usuario->email }}" required>
 
             <button type="submit">Editar usuário</button>
-
 
         </form>
 
@@ -106,21 +109,51 @@
 </style>
 
 <script>
+    function mascaraCpf(cpfField) {
+        let valor = cpfField.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+        // Limitar a 11 dígitos
+        if (valor.length > 11) {
+            valor = valor.slice(0, 11);
+        }
+
+        // Adiciona a máscara
+        valor = valor.replace(/^(\d{3})(\d)/, '$1.$2'); // Primeiro ponto
+        valor = valor.replace(/(\d{3})(\d)/, '$1.$2');  // Segundo ponto
+        valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2'); // Traço
+
+        cpfField.value = valor; // Atualiza o valor do campo
+    }
+
+    function mascaraTelefone(telefoneField) {
+        let valor = telefoneField.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+        // Limita a 11 caracteres numéricos
+        if (valor.length > 11) {
+            valor = valor.slice(0, 11);
+        }
+
+        // Aplica a máscara de acordo com o tamanho do valor
+        if (valor.length === 11) {
+            valor = valor.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+        } else if (valor.length === 10) {
+            valor = valor.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
+        }
+
+        telefoneField.value = valor;
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         const cpfInput = document.getElementById('cpf');
+        const telefoneInput = document.getElementById('telefone');
 
-        cpfInput.addEventListener('input', function (e) {
-            const value = e.target.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
-            let formattedValue = '';
+        // Aplica as máscaras se os campos já tiverem valores preenchidos
+        if (cpfInput.value) mascaraCpf(cpfInput);
+        if (telefoneInput.value) mascaraTelefone(telefoneInput);
 
-            if (value.length <= 11) {
-                formattedValue = value.replace(/(\d{3})(\d)/, '$1.$2'); // Adiciona ponto após 3 dígitos
-                formattedValue = formattedValue.replace(/(\d{3})(\d)/, '$1.$2'); // Adiciona ponto após 6 dígitos
-                formattedValue = formattedValue.replace(/(\d{3})(\d{1,2})$/, '$1-$2'); // Adiciona hífen antes dos últimos 2 dígitos
-            }
-
-            e.target.value = formattedValue;
-        });
+        // Adiciona os eventos para aplicar a máscara durante a digitação
+        cpfInput.addEventListener('input', () => mascaraCpf(cpfInput));
+        telefoneInput.addEventListener('input', () => mascaraTelefone(telefoneInput));
     });
 
 </script>

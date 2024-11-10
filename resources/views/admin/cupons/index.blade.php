@@ -19,6 +19,7 @@
             </div>
         </div>
 
+        @if(auth()->user()->admin)
         <form action="{{ route('cupom.registro') }}" method="POST" class="form-registro" style="margin-bottom: 20px;">
             {{ csrf_field() }}
             <label for="nome">Nome:</label>
@@ -55,6 +56,7 @@
                 <button type="submit" class="btn btn-relatorio">Relatório de Cupons</button>
             </form>
         </div>
+        @endif
 
         <div class="grid-cupons">
             @foreach($cupom as $c)
@@ -62,9 +64,11 @@
                     <div class="cupom-info">
                         <span class="cupom-nome">{{ $c->nome }}<br></span>
                         <span class="cupom-valor">{{ $c->valor }}% - </span>
+
                         @foreach($c->categorias as $categoria)
                             <span class="cupom-categoria">{{ $categoria->descricao }}</span><br>
                         @endforeach
+                        <span class="cupom-usos">Usos: {{ $c->quant_usos }}</span><br>
                         <span class="cupom-data_valida">Válido para:
                     @if($c->data_valida == 'Sun') Domingo
                             @elseif($c->data_valida == 'Mon') Segunda-feira
@@ -85,7 +89,9 @@
                             @endif
                 </span>
                     </div>
+                    @if(auth()->user()->admin)
                     <div class="cupom-actions">
+
                         <form action="{{ route('cupom.remove', $c->id) }}" method="POST" class="remover-form">
                             {{ csrf_field() }}
                             <button type="submit" class="btn-remover">Remover</button>
@@ -94,7 +100,9 @@
                             {{ csrf_field() }}
                             <button type="submit" class="btn-editar">Editar</button>
                         </form>
+
                     </div>
+                    @endif
                 </div>
             @endforeach
         </div>

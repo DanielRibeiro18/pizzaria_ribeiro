@@ -36,7 +36,7 @@ class DashboardController extends Controller
 
     public function gerarGraficoDiario()
     {
-        $hoje = Carbon::today();
+        $hoje = Carbon::yesterday();
 
         // Busca pedidos do dia atual com status 'finalizado' e os produtos relacionados
         $pedidos = Pedido::with('produtos')
@@ -204,7 +204,7 @@ class DashboardController extends Controller
         $periodo = '';
 
         if ($tipo === 'diario') {
-            $dataInicio = $hoje;
+            $dataInicio = Carbon::yesterday();
             $periodo = $hoje->format('d/m/Y');
         } elseif ($tipo === 'semanal') {
             $dataInicio = Carbon::today()->subDays(6);

@@ -20,8 +20,7 @@
         </div>
     </div>
 
-
-
+    @if(auth()->user()->admin)
     <form action="{{ route('adicional.store') }}" method="POST" class="form-adicional">
         {{ csrf_field() }}
 
@@ -40,16 +39,19 @@
             <button type="submit" class="btn btn-relatorio">Relatório de Adicionais</button>
         </form>
     </div>
+    @endif
 
     <div class="grid-adicionais">
         @foreach($adicionais as $adicional)
             <div class="adicional-item">
                 <span class="adicional-nome">{{ $adicional->nome }}</span>
                 <span class="adicional-valor">R$ {{ number_format($adicional->valor, 2, ',', '.') }}</span>
+                @if(auth()->user()->admin)
                 <form action="{{ route('adicional.delete', $adicional->id) }}" method="POST" class="remover-form">
                     {{ csrf_field() }}
                     <button type="submit" class="btn btn-danger">Remover</button>
                 </form>
+                @endif
             </div>
         @endforeach
     </div>

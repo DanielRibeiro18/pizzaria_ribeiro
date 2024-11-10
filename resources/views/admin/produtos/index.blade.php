@@ -18,7 +18,7 @@
                 <a href="{{ route('logout') }}" class="btn">Logout</a>
             </div>
         </div>
-
+        @if(auth()->user()->admin)
     <form enctype="multipart/form-data" action="{{ route('produto.cadastro') }}" method="POST" class="form-registro">
         {{ csrf_field() }}
 
@@ -77,6 +77,7 @@
                 <button type="submit" class="btn btn-relatorio">Relatório de Produtos</button>
             </form>
         </div>
+        @endif
 
 
         <div class="grid-produtos">
@@ -95,6 +96,7 @@
                         @endif
 
                     </div>
+                    @if(auth()->user()->admin)
                     <div class="produto-actions">
                         <form action="{{ route('produto.remove', $produto->id) }}" method="POST" class="remover-form">
                             {{ csrf_field() }}
@@ -105,6 +107,7 @@
                             <button type="submit" class="btn-editar">Editar</button>
                         </form>
                     </div>
+                    @endif
                 </div>
             @endforeach
         </div>
