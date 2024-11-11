@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class HorarioController extends Controller
 {
+
     public function list(Request $request)
     {
         $horarios = Horario::all();

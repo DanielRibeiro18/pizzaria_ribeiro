@@ -9,7 +9,7 @@
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only">Carregando...</span>
         </div>
     </div>
     <!-- Spinner End -->
@@ -74,8 +74,8 @@
                     <div class="service-item rounded pt-3">
                         <div class="p-4">
                             <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
-                            <h5>Master Chefs</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                            <h5>Chefs especializados</h5>
+                            <p>Cada refeição é preparada com paixão e cuidado, utilizando os melhores ingredientes para oferecer sabores incríveis.</p>
                         </div>
                     </div>
                 </div>
@@ -83,8 +83,8 @@
                     <div class="service-item rounded pt-3">
                         <div class="p-4">
                             <i class="fa fa-3x fa-utensils text-primary mb-4"></i>
-                            <h5>Quality Food</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                            <h5>Comida de qualidade</h5>
+                            <p>Nosso compromisso é fornecer sempre alimentos frescos, deliciosos e de alta qualidade. Priorizamos a escolha de ingredientes premium, garantindo uma refeição saborosa a cada pedido.</p>
                         </div>
                     </div>
                 </div>
@@ -92,17 +92,17 @@
                     <div class="service-item rounded pt-3">
                         <div class="p-4">
                             <i class="fa fa-3x fa-cart-plus text-primary mb-4"></i>
-                            <h5>Online Order</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                            <h5>Pedidos Online</h5>
+                            <p>Com um sistema simples e rápido, você pode escolher suas pizzas favoritas e recebê-las em casa sem complicação, de maneira prática e eficiente.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
                     <div class="service-item rounded pt-3">
                         <div class="p-4">
-                            <i class="fa fa-3x fa-headset text-primary mb-4"></i>
-                            <h5>24/7 Service</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                            <i class="fa fa-3x fa-motorcycle text-primary mb-4"></i>
+                            <h5>Entrega Rápida</h5>
+                            <p>Garantimos que sua refeição chegue até você de forma rápida e segura, para que você aproveite sua pizza enquanto está quentinha e deliciosa.</p>
                         </div>
                     </div>
                 </div>
