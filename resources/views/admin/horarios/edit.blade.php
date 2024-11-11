@@ -19,21 +19,25 @@
             </div>
         </div>
 
+        <form action="{{ route('horario.update', $horario->id) }}" method="POST" class="horario-form">
+            {{ method_field('PUT') }}
+            {{ csrf_field() }}
 
-    <form action="{{route('horario.update', $horario->id)}}" method="POST" class="horario-form">
-        {{ method_field('PUT') }}
-        {{ csrf_field() }}
-        <label for="nome">Dia: {{ $horario->dia_semana }}</label>
+            <label for="nome">Dia: {{ $horario->dia_semana }}</label>
 
-        <label for="hora_abertura">Horário de abertura:</label>
-        <input type="text" id="hora_abertura" name="hora_abertura" value="{{ $horario->hora_abertura }}" required>
+            <label for="fechado">Fechado?</label>
+            <input type="checkbox" id="fechado" name="fechado" value="1" {{ $horario->fechado ? 'checked' : '' }}>
 
-        <label for="hora_fechamento">Horário de fechamento:</label>
-        <input type="text" id="hora_fechamento" name="hora_fechamento" value="{{ $horario->hora_fechamento }}" required>
+            <label for="hora_abertura">Horário de abertura:</label>
+            <input type="text" id="hora_abertura" name="hora_abertura" value="{{ $horario->hora_abertura }}" required>
 
-        <button type="submit">Editar horário</button>
-    </form>
-</div>
+            <label for="hora_fechamento">Horário de fechamento:</label>
+            <input type="text" id="hora_fechamento" name="hora_fechamento" value="{{ $horario->hora_fechamento }}" required>
+
+            <button type="submit">Editar horário</button>
+        </form>
+
+    </div>
 
     </div>
 

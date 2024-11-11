@@ -22,6 +22,10 @@ class HorarioController extends Controller
 
     public function update(Request $request, Horario $horario)
     {
+        // Atualiza o valor de 'fechado' com base no checkbox
+        $horario->fechado = $request->has('fechado');
+
+        // Mantém os valores de hora_abertura e hora_fechamento
         $horario->hora_abertura = $request->hora_abertura;
         $horario->hora_fechamento = $request->hora_fechamento;
 

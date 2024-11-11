@@ -31,10 +31,17 @@
                 <div class="horario-item">
                     <div class="horario-info">
     {{ $horario->dia_semana }}
+    @if($horario->fechado)
+        <div>
+            <span>Fechado</span>
+        </div>
 
-    <div>
-        {{ $horario->hora_abertura }} - {{ $horario->hora_fechamento }}
-    </div>
+                        @else
+                            <div>
+                                {{ $horario->hora_abertura }} - {{ $horario->hora_fechamento }}
+                            </div>
+    @endif
+
                     </div>
 
                     <div class="horario-actions">

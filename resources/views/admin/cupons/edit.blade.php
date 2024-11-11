@@ -62,7 +62,7 @@
                 <option value="Sat" @if($cupom->data_valida == 'Sat') selected @endif>Sábado</option>
             </select>
 
-            <button type="submit">Editar usuário</button>
+            <button type="submit">Editar cupom</button>
 
 
         </form>

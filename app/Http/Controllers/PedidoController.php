@@ -25,8 +25,8 @@ class PedidoController extends Controller
 
         $horario = Horario::where('dia_semana', Horario::hoje())->first();
 
-        if(!$horario->estaAberto()){
-            return redirect(route('cardapio'))->withErrors(['message' => 'O carrinho está disponível apenas de terça-feira a domingo, das 18h às 23h.']);
+        if(!$horario->estaAberto() || $horario->fechado){
+            return redirect(route('cardapio'))->with(['message' => 'O carrinho está disponível apenas de terça-feira a domingo, das 18h às 23h.']);
         }
 
         $usuario = auth()->user();
