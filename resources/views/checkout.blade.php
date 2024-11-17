@@ -118,7 +118,7 @@
 
     <!-- Subtotal -->
     <div class="form-group">
-        <label for="subtotal">Subtotal</label>
+        <label for="subtotal">Total</label>
         <input type="text" id="subtotal" name="subtotal" value="" readonly>
     </div>
 

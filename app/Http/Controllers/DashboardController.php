@@ -36,7 +36,7 @@ class DashboardController extends Controller
 
     public function gerarGraficoDiario()
     {
-        $hoje = Carbon::yesterday();
+        $hoje = Carbon::today();
 
         // Busca pedidos do dia atual com status 'finalizado' e os produtos relacionados
         $pedidos = Pedido::with('produtos')

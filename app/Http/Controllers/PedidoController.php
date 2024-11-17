@@ -429,7 +429,7 @@ class PedidoController extends Controller
             $html .= '<tr>';
             $html .= '<td style="text-align: center;">#' . $pedido->id . '</td>';
             $html .= '<td style="text-align: center;">' . htmlspecialchars($pedido->usuario->nome) . '</td>';
-            $html .= '<td style="text-align: center;">' . htmlspecialchars($pedido->bairro->cidade . ' - ' . $pedido->endereco) . '</td>';
+            $html .= '<td style="text-align: center;">' . htmlspecialchars($pedido->endereco) . '</td>';
             $html .= '<td>';
 
             // Lista os produtos do pedido com mais espaçamento
