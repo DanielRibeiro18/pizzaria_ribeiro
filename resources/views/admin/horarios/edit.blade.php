@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-@include('admin.components.headadmin', ['title'=>'Editar horário'])
+@include('admin.components.headadmin', ['title'=>'Atualizar horário'])
 
 <body>
 <div class="container">

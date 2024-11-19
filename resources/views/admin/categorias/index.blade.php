@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-@include('admin.components.headadmin', ['title'=>'Usuários'])
+@include('admin.components.headadmin', ['title'=>'Categorias'])
 
 <body>
 <div class="container">

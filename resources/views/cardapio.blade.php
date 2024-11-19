@@ -94,7 +94,7 @@
                                         <div class="modal-dialog modal-sm" role="document">
                                             <div class="modal-content" style="background-color: #1d1b2c;">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title text-white" id="salgmediaModalLabel{{ $produto->id }}">Adicionais</h5>
+                                                    <h5 class="modal-title text-white" id="salgmediaModalLabel{{ $produto->id }}">Escolha até no máximo 2 adicionais!</h5>
                                                 </div>
                                                 <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                                                     <div class="container">
@@ -315,7 +315,7 @@
                                         <div class="modal-dialog modal-sm" role="document">
                                             <div class="modal-content" style="background-color: #1d1b2c;">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title text-white" id="salggrandeModalLabel{{ $produto->id }}">Adicionais</h5>
+                                                    <h5 class="modal-title text-white" id="salggrandeModalLabel{{ $produto->id }}">Escolha até no máximo 2 adicionais!</h5>
                                                 </div>
                                                 <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                                                     <div class="container">
@@ -561,7 +561,7 @@
                                         <div class="modal-dialog modal-sm" role="document">
                                             <div class="modal-content" style="background-color: #1d1b2c;">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title text-white" id="docemediaModalLabel{{ $produto->id }}">Adicionais</h5>
+                                                    <h5 class="modal-title text-white" id="docemediaModalLabel{{ $produto->id }}">Escolha até no máximo 2 adicionais!</h5>
                                                 </div>
                                                 <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                                                     <div class="container">
@@ -782,7 +782,7 @@
                                         <div class="modal-dialog modal-sm" role="document">
                                             <div class="modal-content" style="background-color: #1d1b2c;">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title text-white" id="docegrandeModalLabel{{ $produto->id }}">Adicionais</h5>
+                                                    <h5 class="modal-title text-white" id="docegrandeModalLabel{{ $produto->id }}">Escolha até no máximo 2 adicionais!</h5>
                                                 </div>
                                                 <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                                                     <div class="container">
