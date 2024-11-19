@@ -982,6 +982,7 @@
                         <div id="tab-bebidas" class="tab-pane fade show p-0 active">
                             <div class="row g-4">
                                 @foreach($bebidas as $produto)
+                                    @if($produto->ativo)
                                     <div class="col-lg-6">
                                         <div class="d-flex align-items-center">
                                             <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('site/img/produto/' . $produto->img) }}" alt="" style="width: 80px;">
@@ -1002,6 +1003,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                 @endforeach
                             </div>
                         </div>

@@ -22,10 +22,6 @@ Route::get('/cardapio', 'ProdutoController@index')->name('cardapio');
 
 Route::view('/sobre-nos', 'sobre_nos')->name('sobre_nos');
 
-Route::get('/contato', function () {
-    return view('contato');
-})->name('contato');
-
 Route::get('/registro', function () {
     return view('registro');
 })->name('registro');
@@ -33,8 +29,6 @@ Route::get('/registro', function () {
 Route::get('/login', function () {
     return view('login');
 })->name('login');
-
-
 
 Route::get('/admin/dashboard', 'DashboardController@showDashboard')->name('dashboard');
 

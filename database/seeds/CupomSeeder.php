@@ -16,7 +16,7 @@ class CupomSeeder extends Seeder
         $cupom->nome = 'salgribeiro';
         $cupom->valor = '10';
         $cupom->ativo = true;
-        $cupom->data_valida = 'Mon';
+        $cupom->data_valida = 'Tue';
         $cupom->quant_usos = 10;
         $cupom->save();
 

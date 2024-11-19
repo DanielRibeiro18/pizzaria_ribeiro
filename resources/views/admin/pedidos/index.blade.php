@@ -115,6 +115,9 @@
                     </span>
                         </div>
                     @endif
+                    @if($p->situacao == 'cancelado')
+                        <span style="margin-top: 10px;">Motivo do cancelamento: {{ $p->motivo_cancelamento }} </span>
+                    @endif
                 </div>
             @endforeach
         </div>
